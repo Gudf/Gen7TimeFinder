@@ -42,28 +42,27 @@ StationarySearcher::StationarySearcher(const QDateTime &start, const QDateTime &
     connect(this, &StationarySearcher::finished, this, &QObject::deleteLater);
 }
 
-StationarySearcher::~StationarySearcher()
-{
-    delete[] seeds;
-}
-
 void StationarySearcher::run()
 {
     u64 epochStart = Utility::getCitraTime(startTime, profile.getOffset());
     u64 epochEnd = Utility::getCitraTime(endTime, profile.getOffset());
-    seeds = new u64[endFrame - startFrame + 50];
+    QScopedArrayPointer<u64> seeds(new u64[endFrame - startFrame + 50]);
 
     for (u64 epoch = epochStart; epoch <= epochEnd; epoch += 1000)
     {
         if (cancel)
+        {
             return;
+        }
 
         u32 initialSeed = Utility::calcInitialSeed(profile.getTick(), epoch);
         SFMT sfmt(initialSeed);
         sfmt.advanceFrames(startFrame);
 
         for (u32 i = 0; i < endFrame - startFrame + 50; i++)
+        {
             seeds[i] = sfmt.nextULong();
+        }
 
         for (u32 frame = 0; frame <= (endFrame - startFrame); frame++)
         {
@@ -89,7 +88,9 @@ void StationarySearcher::run()
                 if (result.getShiny())
                 {
                     if (shinyLocked)
+                    {
                         result.setPID(result.getPID() ^ 0x10000000);
+                    }
                     break;
                 }
                 // Handle eventually ???
@@ -111,8 +112,12 @@ void StationarySearcher::run()
             }
 
             for (int i = 0; i < 6; i++)
+            {
                 if (result.getIV(i) == -1)
+                {
                     result.setIV(i, seeds[frame + index++] & 0x1f);
+                }
+            }
 
             result.calcHiddenPower();
 
@@ -128,9 +133,8 @@ void StationarySearcher::run()
                 result.setTarget(target);
                 result.setFrame(frame + startFrame);
 
-                mutex.lock();
+                QMutexLocker locker(&mutex);
                 results.append(result);
-                mutex.unlock();
             }
         }
 
@@ -151,10 +155,9 @@ int StationarySearcher::currentProgress()
 
 QVector<StationaryResult> StationarySearcher::getResults()
 {
-    mutex.lock();
+    QMutexLocker locker(&mutex);
     auto data(results);
     results.clear();
-    mutex.unlock();
 
     return data;
 }

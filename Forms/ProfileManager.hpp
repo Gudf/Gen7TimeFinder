@@ -42,15 +42,17 @@ public:
     explicit ProfileManager(QWidget *parent = nullptr);
     ~ProfileManager() override;
 
+private:
+    Ui::ProfileManager *ui;
+    ProfileModel *model;
+
+    void setupModels();
+
 private slots:
     void on_pushButtonNew_clicked();
     void on_pushButtonEdit_clicked();
     void on_pushButtonDelete_clicked();
     void on_pushButtonDone_clicked();
-
-private:
-    Ui::ProfileManager *ui;
-    ProfileModel *model;
 
 };
 

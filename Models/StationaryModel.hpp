@@ -28,9 +28,6 @@
 class StationaryModel : public QAbstractTableModel
 {
 
-private:
-    QVector<StationaryResult> model;
-
 public:
     StationaryModel(QObject *parent = nullptr);
     void addItems(const QVector<StationaryResult> &frames);
@@ -39,6 +36,9 @@ public:
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role) const override;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
+
+private:
+    QVector<StationaryResult> model;
 
 };
 

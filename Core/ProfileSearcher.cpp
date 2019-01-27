@@ -21,16 +21,17 @@ void ProfileSearcher::run()
         for (u32 offset = 0; offset <= offsetRange; offset++)
         {
             if (cancel)
+            {
                 return;
+            }
 
             // Plus offset
             u64 epochPlus = Utility::getCitraTime(startDate, baseOffset + offset);
             u32 seedPlus = Utility::calcInitialSeed(baseTick + tick, epochPlus);
             if (seedPlus == initialSeed)
             {
-                mutex.lock();
+                QMutexLocker locker(&mutex);
                 results.append(QPair<u32, u32>(baseTick + tick, baseOffset + offset));
-                mutex.unlock();
             }
 
             // Minus offset
@@ -38,9 +39,8 @@ void ProfileSearcher::run()
             u32 seedMinus = Utility::calcInitialSeed(baseTick - tick, epochMinus);
             if (seedMinus == initialSeed)
             {
-                mutex.lock();
+                QMutexLocker locker(&mutex);
                 results.append(QPair<u32, u32>(baseTick - tick, baseOffset - offset));
-                mutex.unlock();
             }
         }
         progress++;
@@ -59,10 +59,9 @@ int ProfileSearcher::currentProgress()
 
 QVector<QPair<u32, u32>> ProfileSearcher::getResults()
 {
-    mutex.lock();
+    QMutexLocker locker(&mutex);
     auto data(results);
     results.clear();
-    mutex.unlock();
 
     return data;
 }

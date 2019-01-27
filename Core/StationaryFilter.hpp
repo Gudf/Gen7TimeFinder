@@ -26,15 +26,15 @@
 class StationaryFilter
 {
 
-private:
-    QVector<int> minIV, maxIV;
-    int nature{}, hiddenPower{}, ability{}, gender{};
-    bool shiny{};
-
 public:
     StationaryFilter() = default;
     StationaryFilter(const QVector<int> &minIV, const QVector<int> &maxIV, int nature, int hiddenPower, int ability, bool shiny, int gender);
     bool compare(const StationaryResult &frame);
+
+private:
+    QVector<int> minIV, maxIV;
+    int nature{}, hiddenPower{}, ability{}, gender{};
+    bool shiny{};
 
 };
 

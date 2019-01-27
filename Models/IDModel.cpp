@@ -34,7 +34,10 @@ void IDModel::addItems(const QVector<IDResult> &frames)
 void IDModel::clear()
 {
     if (model.isEmpty())
+    {
         return;
+    }
+
     emit beginRemoveRows(QModelIndex(), 0, rowCount() - 1);
     model.clear();
     model.squeeze();

@@ -49,7 +49,6 @@ namespace Utility
     QStringList getNatures();
     QStringList getHiddenPowers();
     QStringList getGenderRatios();
-
 }
 
 #endif // UTILITY_HPP

@@ -24,7 +24,9 @@ StationaryResult::StationaryResult(u32 seed, u16 tid, u16 sid)
     this->seed = seed;
     tsv = (tid ^ sid) >> 4;
     for (int &iv : ivs)
+    {
         iv = -1;
+    }
 }
 
 QString StationaryResult::getDateTime() const

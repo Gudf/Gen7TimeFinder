@@ -33,6 +33,16 @@ class IDSearcher : public QThread
 {
     Q_OBJECT
 
+public:
+    IDSearcher(const QDateTime &start, const QDateTime &end, u32 startFrame, u32 endFrame, const Profile &profile, const IDFilter &filter);
+    void run() override;
+    int maxProgress();
+    int currentProgress();
+    QVector<IDResult> getResults();
+
+public slots:
+    void cancelSearch();
+
 private:
     bool cancel;
     QDateTime startTime, endTime;
@@ -43,16 +53,6 @@ private:
 
     QVector<IDResult> results;
     QMutex mutex;
-
-public:
-    IDSearcher(const QDateTime &start, const QDateTime &end, u32 startFrame, u32 endFrame, const Profile &profile, const IDFilter &filter);
-    void run() override;
-    int maxProgress();
-    int currentProgress();
-    QVector<IDResult> getResults();
-
-public slots:
-    void cancelSearch();
 
 };
 

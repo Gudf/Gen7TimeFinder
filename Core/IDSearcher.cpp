@@ -41,7 +41,9 @@ void IDSearcher::run()
     for (u64 epoch = epochStart; epoch <= epochEnd; epoch += 1000)
     {
         if (cancel)
+        {
             return;
+        }
 
         u32 initialSeed = Utility::calcInitialSeed(profile.getTick(), epoch);
         SFMT sfmt(initialSeed);
@@ -55,9 +57,8 @@ void IDSearcher::run()
                 QDateTime target = QDateTime::fromMSecsSinceEpoch(static_cast<qlonglong>(Utility::getNormalTime(epoch, profile.getOffset())), Qt::UTC);
                 id.setTarget(target);
 
-                mutex.lock();
+                QMutexLocker locker(&mutex);
                 results.append(id);
-                mutex.unlock();
             }
         }
 
@@ -78,10 +79,9 @@ int IDSearcher::currentProgress()
 
 QVector<IDResult> IDSearcher::getResults()
 {
-    mutex.lock();
+    QMutexLocker locker(&mutex);
     auto data(results);
     results.clear();
-    mutex.unlock();
 
     return data;
 }

@@ -37,10 +37,56 @@ MainWindow::~MainWindow()
     settings.setValue("profile", ui->comboBoxProfiles->currentIndex());
 
     delete ui;
-    delete stationaryModel;
-    //delete eventModel;
-    //delete wildModel;
-    delete idModel;
+}
+
+void MainWindow::setupModel()
+{
+    stationaryModel = new StationaryModel(ui->tableViewStationary);
+    //eventModel = new EventModel();
+    //wildModel = new WildModel();
+    idModel = new IDModel(ui->tableViewID);
+
+    ui->tableViewStationary->setModel(stationaryModel);
+    ui->tableViewStationary->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
+    ui->tableViewStationary->verticalHeader()->setVisible(false);
+
+    //ui->tableViewEvent->setModel(eventModel);
+    ui->tableViewEvent->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
+    ui->tableViewEvent->verticalHeader()->setVisible(false);
+
+    //ui->tableViewWild->setModel(wildModel);
+    ui->tableViewWild->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
+    ui->tableViewWild->verticalHeader()->setVisible(false);
+
+    ui->tableViewID->setModel(idModel);
+    ui->tableViewID->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
+    ui->tableViewID->verticalHeader()->setVisible(false);
+
+    ui->comboBoxStationaryNature->addItems(Utility::getNatures());
+    ui->comboBoxStationaryHiddenPower->addItems(Utility::getHiddenPowers());
+    ui->comboBoxStationarySynchNature->addItems(Utility::getNatures());
+    ui->comboBoxStationaryGenderRatio->addItems(Utility::getGenderRatios());
+
+    ui->comboBoxStationaryGenderRatio->setItemData(0, 0);
+    ui->comboBoxStationaryGenderRatio->setItemData(1, 126);
+    ui->comboBoxStationaryGenderRatio->setItemData(2, 30);
+    ui->comboBoxStationaryGenderRatio->setItemData(3, 62);
+    ui->comboBoxStationaryGenderRatio->setItemData(4, 190);
+    ui->comboBoxStationaryGenderRatio->setItemData(5, 224);
+    ui->comboBoxStationaryGenderRatio->setItemData(6, 1);
+    ui->comboBoxStationaryGenderRatio->setItemData(7, 2);
+
+    qRegisterMetaType<QVector<IDResult>>("QVector<IDResult>");
+    qRegisterMetaType<QVector<StationaryResult>>("QVector<StationaryResult>");
+}
+
+void MainWindow::checkProfileJson()
+{
+    QFile file(QApplication::applicationDirPath() + "/profiles.json");
+    if (file.open(QIODevice::NewOnly | QIODevice::Text))
+    {
+        file.close();
+    }
 }
 
 void MainWindow::on_pushButtonProfileManager_clicked()
@@ -91,12 +137,16 @@ void MainWindow::on_pushButtonStationarySearch_clicked()
     ui->pushButtonStationarySearch->setEnabled(false);
     ui->pushButtonStationaryCancel->setEnabled(true);
 
-    QVector<int> min = { ui->spinBoxStationaryMinHP->value(), ui->spinBoxStationaryMinAtk->value(), ui->spinBoxStationaryMinDef->value(),
-                         ui->spinBoxStationaryMinSpA->value(), ui->spinBoxStationaryMinSpD->value(), ui->spinBoxStationaryMinSpe->value()
-                       };
-    QVector<int> max = { ui->spinBoxStationaryMaxHP->value(), ui->spinBoxStationaryMaxAtk->value(), ui->spinBoxStationaryMaxDef->value(),
-                         ui->spinBoxStationaryMaxSpA->value(), ui->spinBoxStationaryMaxSpD->value(), ui->spinBoxStationaryMaxSpe->value()
-                       };
+    QVector<int> min =
+    {
+        ui->spinBoxStationaryMinHP->value(), ui->spinBoxStationaryMinAtk->value(), ui->spinBoxStationaryMinDef->value(),
+        ui->spinBoxStationaryMinSpA->value(), ui->spinBoxStationaryMinSpD->value(), ui->spinBoxStationaryMinSpe->value()
+    };
+    QVector<int> max =
+    {
+        ui->spinBoxStationaryMaxHP->value(), ui->spinBoxStationaryMaxAtk->value(), ui->spinBoxStationaryMaxDef->value(),
+        ui->spinBoxStationaryMaxSpA->value(), ui->spinBoxStationaryMaxSpD->value(), ui->spinBoxStationaryMaxSpe->value()
+    };
 
     StationaryFilter filter(min, max, ui->comboBoxStationaryNature->currentIndex() - 1, ui->comboBoxStationaryHiddenPower->currentIndex() - 1,
                             ui->comboBoxStationaryAbility->currentIndex() - 1, ui->checkBoxStationaryShiny->isChecked(), ui->comboBoxStationaryGender->currentIndex());
@@ -123,7 +173,9 @@ void MainWindow::on_pushButtonStationarySearch_clicked()
 void MainWindow::updateStationary(const QVector<StationaryResult> &frames, int val)
 {
     if (!frames.isEmpty())
+    {
         stationaryModel->addItems(frames);
+    }
 
     ui->progressBarStationary->setValue(val);
 }
@@ -156,13 +208,21 @@ void MainWindow::on_pushButtonIDSearch_clicked()
 
     int filterType;
     if (ui->radioButtonIDTID->isChecked())
+    {
         filterType = 0;
+    }
     else if (ui->radioButtonIDSID->isChecked())
+    {
         filterType = 1;
+    }
     else if (ui->radioButtonIDTIDSID->isChecked())
+    {
         filterType = 2;
+    }
     else
+    {
         filterType = 3;
+    }
 
     IDFilter filter(ui->textEditIDFilter->toPlainText(), ui->textEditTSVFilter->toPlainText(), filterType);
 
@@ -185,7 +245,9 @@ void MainWindow::on_pushButtonIDSearch_clicked()
 void MainWindow::updateID(const QVector<IDResult> &frames, int val)
 {
     if (!frames.isEmpty())
+    {
         idModel->addItems(frames);
+    }
 
     ui->progressBarID->setValue(val);
 }
@@ -198,62 +260,16 @@ void MainWindow::updateProfiles()
     ui->comboBoxProfiles->clear();
 
     for (const auto &profile : profiles)
+    {
         ui->comboBoxProfiles->addItem(profile.getName());
+    }
 
     QSettings setting;
     int val = setting.value("profile").toInt();
     if (val < ui->comboBoxProfiles->count())
-        ui->comboBoxProfiles->setCurrentIndex(val);
-}
-
-void MainWindow::checkProfileJson()
-{
-    QFile file(QApplication::applicationDirPath() + "/profiles.json");
-    if (file.open(QIODevice::NewOnly | QIODevice::Text))
     {
-        file.close();
+        ui->comboBoxProfiles->setCurrentIndex(val);
     }
-}
-
-void MainWindow::setupModel()
-{
-    stationaryModel = new StationaryModel();
-    //eventModel = new EventModel();
-    //wildModel = new WildModel();
-    idModel = new IDModel();
-
-    ui->tableViewStationary->setModel(stationaryModel);
-    ui->tableViewStationary->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
-    ui->tableViewStationary->verticalHeader()->setVisible(false);
-
-    //ui->tableViewEvent->setModel(eventModel);
-    ui->tableViewEvent->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
-    ui->tableViewEvent->verticalHeader()->setVisible(false);
-
-    //ui->tableViewWild->setModel(wildModel);
-    ui->tableViewWild->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
-    ui->tableViewWild->verticalHeader()->setVisible(false);
-
-    ui->tableViewID->setModel(idModel);
-    ui->tableViewID->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
-    ui->tableViewID->verticalHeader()->setVisible(false);
-
-    ui->comboBoxStationaryNature->addItems(Utility::getNatures());
-    ui->comboBoxStationaryHiddenPower->addItems(Utility::getHiddenPowers());
-    ui->comboBoxStationarySynchNature->addItems(Utility::getNatures());
-    ui->comboBoxStationaryGenderRatio->addItems(Utility::getGenderRatios());
-
-    ui->comboBoxStationaryGenderRatio->setItemData(0, 0);
-    ui->comboBoxStationaryGenderRatio->setItemData(1, 126);
-    ui->comboBoxStationaryGenderRatio->setItemData(2, 30);
-    ui->comboBoxStationaryGenderRatio->setItemData(3, 62);
-    ui->comboBoxStationaryGenderRatio->setItemData(4, 190);
-    ui->comboBoxStationaryGenderRatio->setItemData(5, 224);
-    ui->comboBoxStationaryGenderRatio->setItemData(6, 1);
-    ui->comboBoxStationaryGenderRatio->setItemData(7, 2);
-
-    qRegisterMetaType<QVector<IDResult>>("QVector<IDResult>");
-    qRegisterMetaType<QVector<StationaryResult>>("QVector<StationaryResult>");
 }
 
 void MainWindow::on_actionCalibrate_Profile_triggered()

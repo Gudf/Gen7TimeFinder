@@ -31,13 +31,6 @@ using u16 = uint16_t;
 class Profile
 {
 
-private:
-    QString name;
-    u32 offset, tick;
-    u16 tid, sid;
-    Game version;
-    bool shinyCharm;
-
 public:
     Profile();
     Profile(const QString &name, u32 offset, u32 tick, u16 tid, u16 sid, Game version, bool shinyCharm);
@@ -50,6 +43,13 @@ public:
     Game getVersion() const;
     QString getVersionString() const;
     bool getShinyCharm() const;
+
+private:
+    QString name;
+    u32 offset, tick;
+    u16 tid, sid;
+    Game version;
+    bool shinyCharm;
 
 };
 

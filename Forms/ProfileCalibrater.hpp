@@ -40,14 +40,16 @@ public:
     explicit ProfileCalibrater(QWidget *parent = nullptr);
     ~ProfileCalibrater() override;
 
+private:
+    Ui::ProfileCalibrater *ui;
+    QStandardItemModel *model;
+
+    void setupModels();
+
 private slots:
     void on_pushButtonSearch_clicked();
     void updateResults(QVector<QPair<u32, u32>> results, int val);
     void on_comboBox_currentIndexChanged(int index);
-
-private:
-    Ui::ProfileCalibrater *ui;
-    QStandardItemModel *model;
 
 };
 

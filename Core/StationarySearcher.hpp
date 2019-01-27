@@ -21,6 +21,7 @@
 #define STATIONARYSEARCHER_HPP
 
 #include <QMutex>
+#include <QScopedArrayPointer>
 #include <QThread>
 #include <QVector>
 #include <Core/SFMT.hpp>
@@ -35,25 +36,9 @@ class StationarySearcher : public QThread
 {
     Q_OBJECT
 
-private:
-    Profile profile;
-    StationaryFilter filter;
-    QDateTime startTime, endTime;
-    u32 startFrame, endFrame;
-    int progress;
-    bool cancel;
-    u64 *seeds;
-
-    int ivCount, ability, synchNature, pidCount, gender;
-    bool alwaysSynch, shinyLocked;
-
-    QVector<StationaryResult> results;
-    QMutex mutex;
-
 public:
     StationarySearcher(const QDateTime &start, const QDateTime &end, u32 startFrame, u32 endFrame, bool ivCount, int ability, int synchNature,
                        int gender, bool alwaysSynch, bool shinyLocked, const Profile &profile, const StationaryFilter &filter);
-    ~StationarySearcher() override;
     void run() override;
     int maxProgress();
     int currentProgress();
@@ -61,6 +46,20 @@ public:
 
 public slots:
     void cancelSearch();
+
+private:
+    Profile profile;
+    StationaryFilter filter;
+    QDateTime startTime, endTime;
+    u32 startFrame, endFrame;
+    int progress;
+    bool cancel;
+
+    int ivCount, ability, synchNature, pidCount, gender;
+    bool alwaysSynch, shinyLocked;
+
+    QVector<StationaryResult> results;
+    QMutex mutex;
 
 };
 

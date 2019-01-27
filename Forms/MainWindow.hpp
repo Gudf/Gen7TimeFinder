@@ -47,6 +47,17 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override;
 
+private:
+    Ui::MainWindow *ui;
+    StationaryModel *stationaryModel;
+    //EventModel *eventModel;
+    //WildModel *wildModel;
+    IDModel *idModel;
+    QVector<Profile> profiles;
+
+    void setupModel();
+    void checkProfileJson();
+
 private slots:
     void on_pushButtonProfileManager_clicked();
     void on_comboBoxProfiles_currentIndexChanged(int index);
@@ -56,17 +67,6 @@ private slots:
     void updateID(const QVector<IDResult> &frames, int val);
     void updateProfiles();
     void on_actionCalibrate_Profile_triggered();
-
-private:
-    Ui::MainWindow *ui;
-    StationaryModel *stationaryModel;
-    //EventModel *eventModel;
-    //WildModel *wildModel;
-    IDModel *idModel;
-    QVector<Profile> profiles;
-
-    void checkProfileJson();
-    void setupModel();
 
 };
 

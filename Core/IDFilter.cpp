@@ -71,19 +71,27 @@ bool IDFilter::compare(const IDResult &frame)
         {
             case FilterType::TID:
                 if (!tidFilter.contains(frame.getTID()))
+                {
                     return false;
+                }
                 break;
             case FilterType::SID:
                 if (!sidFilter.contains(frame.getSID()))
+                {
                     return false;
+                }
                 break;
             case FilterType::TIDSID:
                 if (!tidFilter.contains(frame.getTID()) || !sidFilter.contains(frame.getSID()))
+                {
                     return false;
+                }
                 break;
             case FilterType::G7TID:
                 if (!tidFilter.contains(frame.getDisplayTID()))
+                {
                     return false;
+                }
                 break;
         }
     }
@@ -91,7 +99,9 @@ bool IDFilter::compare(const IDResult &frame)
     if (checkTSV)
     {
         if (!tsvFilter.contains(frame.getTSV()))
+        {
             return false;
+        }
     }
 
     return true;

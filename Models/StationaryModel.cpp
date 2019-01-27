@@ -34,7 +34,10 @@ void StationaryModel::addItems(const QVector<StationaryResult> &frames)
 void StationaryModel::clear()
 {
     if (model.isEmpty())
+    {
         return;
+    }
+
     emit beginRemoveRows(QModelIndex(), 0, rowCount() - 1);
     model.clear();
     model.squeeze();

@@ -27,9 +27,6 @@
 class ProfileModel : public QAbstractTableModel
 {
 
-private:
-    QVector<Profile> model;
-
 public:
     ProfileModel(QObject *parent = nullptr);
     void setModel(const QVector<Profile> &profiles);
@@ -41,6 +38,9 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
     Profile getProfile(int index);
     void removeProfile(int index);
+
+private:
+    QVector<Profile> model;
 
 };
 

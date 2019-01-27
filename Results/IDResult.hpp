@@ -30,14 +30,6 @@ using u16 = uint16_t;
 class IDResult
 {
 
-private:
-    QDateTime target;
-    u32 seed{}, frame{};
-    u16 tid{};
-    u16 sid{};
-    u16 tsv{};
-    u32 displayTID{};
-
 public:
     IDResult(u32 seed, u32 frame, u32 rand);
     IDResult() = default;
@@ -49,6 +41,14 @@ public:
     u16 getTSV() const;
     u32 getDisplayTID() const;
     void setTarget(const QDateTime &value);
+
+private:
+    QDateTime target;
+    u32 seed{}, frame{};
+    u16 tid{};
+    u16 sid{};
+    u16 tsv{};
+    u32 displayTID{};
 
 };
 

@@ -44,15 +44,15 @@ public:
     Profile getNewProfile();
     Profile getOriginal();
 
-private slots:
-    void on_buttonBox_accepted();
-    void on_buttonBox_rejected();
-
 private:
     Ui::ProfileEditor *ui;
     bool isEditing = false;
     Profile original;
     Profile fresh;
+
+private slots:
+    void on_buttonBox_accepted();
+    void on_buttonBox_rejected();
 
 };
 

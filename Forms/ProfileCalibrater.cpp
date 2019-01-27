@@ -27,18 +27,20 @@ ProfileCalibrater::ProfileCalibrater(QWidget *parent) :
     ui->setupUi(this);
     setAttribute(Qt::WA_QuitOnClose, false);
     setAttribute(Qt::WA_DeleteOnClose);
-
-    model = new QStandardItemModel(this);
-    model->setHorizontalHeaderLabels(QStringList() << tr("Tick") << tr("Offset"));
-    ui->tableView->setModel(model);
-
-    qRegisterMetaType<QPair<u32, u32>>("QPair<u32, u32>");
 }
 
 ProfileCalibrater::~ProfileCalibrater()
 {
     delete ui;
-    delete model;
+}
+
+void ProfileCalibrater::setupModels()
+{
+    model = new QStandardItemModel(this);
+    model->setHorizontalHeaderLabels(QStringList() << tr("Tick") << tr("Offset"));
+    ui->tableView->setModel(model);
+
+    qRegisterMetaType<QPair<u32, u32>>("QPair<u32, u32>");
 }
 
 void ProfileCalibrater::on_pushButtonSearch_clicked()

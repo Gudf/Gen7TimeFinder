@@ -35,6 +35,11 @@ enum FilterType
 class IDFilter
 {
 
+public:
+    IDFilter() = default;
+    IDFilter(const QString &idList, const QString &tsvList, int filterType);
+    bool compare(const IDResult &frame);
+
 private:
     QVector<u32> tidFilter;
     QVector<u32> sidFilter;
@@ -42,11 +47,6 @@ private:
     FilterType filterType{};
     bool checkID{};
     bool checkTSV{};
-
-public:
-    IDFilter() = default;
-    IDFilter(const QString &idList, const QString &tsvList, int filterType);
-    bool compare(const IDResult &frame);
 
 };
 

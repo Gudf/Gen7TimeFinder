@@ -36,37 +36,49 @@ bool StationaryFilter::compare(const StationaryResult &frame)
     {
         int iv = frame.getIV(i);
         if (iv < minIV[i] || iv > maxIV[i])
+        {
             return false;
+        }
     }
 
     if (nature != -1)
     {
         if (nature != frame.getNature())
+        {
             return false;
+        }
     }
 
     if (hiddenPower != -1)
     {
         if (hiddenPower != frame.getHiddenPower())
+        {
             return false;
+        }
     }
 
     if (ability != -1)
     {
         if (ability != frame.getAbility())
+        {
             return false;
+        }
     }
 
     if (shiny)
     {
         if (!frame.getShiny())
+        {
             return false;
+        }
     }
 
     if (gender != 0)
     {
         if (gender != frame.getGender() && frame.getGender() != 0)
+        {
             return false;
+        }
     }
 
     return true;

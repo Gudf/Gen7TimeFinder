@@ -19,10 +19,17 @@
 
 #include "Core/SFMT.hpp"
 
+#define CMSK1 0xdfffffef
+#define CMSK2 0xddfecb7f
+#define CMSK3 0xbffaffff
+#define CMSK4 0xbffffff6
+#define CSL1 18
+#define CSR1 11
+#define N32 624
+
 // Constructor for SFMT
 SFMT::SFMT(u32 seed, u32 frames)
 {
-    sfmt = new u32[624];
     initialize(seed);
     advanceFrames(frames);
 }
@@ -33,7 +40,9 @@ void SFMT::initialize(u32 seed)
     sfmt[0] = seed;
 
     for (index = 1; index < N32; index++)
+    {
         sfmt[index] = 0x6C078965 * (sfmt[index - 1] ^ (sfmt[index - 1] >> 30)) + index;
+    }
 
     periodCertificaion();
     shuffle();
@@ -47,11 +56,17 @@ void SFMT::periodCertificaion()
     u32 work;
 
     for (int i = 0; i < 4; i++)
+    {
         inner ^= sfmt[i] & PARITY[i];
+    }
     for (int i = 16; i > 0; i >>= 1)
+    {
         inner ^= inner >> i;
+    }
     if ((inner & 1) == 1)
+    {
         return;
+    }
 
     for (int i = 0; i < 4; i++)
     {
@@ -85,7 +100,9 @@ u32 SFMT::nextUInt()
 {
     // Array reshuffle check
     if (index >= N32)
+    {
         shuffle();
+    }
 
     return sfmt[index++];
 }
@@ -95,7 +112,9 @@ u64 SFMT::nextULong()
 {
     // Array reshuffle check
     if (index >= N32)
+    {
         shuffle();
+    }
 
     u32 high = sfmt[index++];
     u32 low = sfmt[index++];
@@ -120,7 +139,9 @@ void SFMT::shuffle()
         a += 4;
         b += 4;
         if (b >= N32)
+        {
             b = 0;
+        }
     }
     while (a < N32);
     index = 0;

@@ -29,15 +29,6 @@ using u16 = uint16_t;
 class StationaryResult
 {
 
-private:
-    QDateTime target;
-    u32 seed{}, pid{}, ec{}, frame{};
-    u16 psv{}, tsv{};
-    int hiddenPower{}, ability{}, nature{}, gender{};
-    int ivs[6] {};
-    bool shiny{};
-    bool synch{};
-
 public:
     StationaryResult() = default;
     StationaryResult(u32 seed, u16 tid, u16 sid);
@@ -66,6 +57,15 @@ public:
     void setShiny(bool value);
     bool getSynch() const;
     void setSynch(bool value);
+
+private:
+    QDateTime target;
+    u32 seed{}, pid{}, ec{}, frame{};
+    u16 psv{}, tsv{};
+    int hiddenPower{}, ability{}, nature{}, gender{};
+    int ivs[6] {};
+    bool shiny{};
+    bool synch{};
 
 };
 

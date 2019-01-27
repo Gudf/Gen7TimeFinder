@@ -56,24 +56,28 @@ u32 Utility::calcInitialSeed(u32 tick, u64 epoch)
 
 QString Utility::getNature(int nature)
 {
-    const QStringList natures = { "Hardy", "Lonely", "Brave", "Adamant",
-                                  "Naughty", "Bold", "Docile", "Relaxed",
-                                  "Impish", "Lax", "Timid", "Hasty",
-                                  "Serious", "Jolly", "Naive", "Modest",
-                                  "Mild", "Quiet", "Bashful", "Rash",
-                                  "Calm", "Gentle", "Sassy", "Careful",
-                                  "Quirky"
-                                };
+    const QStringList natures =
+    {
+        "Hardy", "Lonely", "Brave", "Adamant",
+        "Naughty", "Bold", "Docile", "Relaxed",
+        "Impish", "Lax", "Timid", "Hasty",
+        "Serious", "Jolly", "Naive", "Modest",
+        "Mild", "Quiet", "Bashful", "Rash",
+        "Calm", "Gentle", "Sassy", "Careful",
+        "Quirky"
+    };
     return natures[nature];
 }
 
 QString Utility::getHiddenPower(int hiddenPower)
 {
-    const QStringList hiddenPowers = { "Fighting", "Flying", "Poison", "Ground",
-                                       "Rock", "Bug", "Ghost", "Steel",
-                                       "Fire", "Water", "Grass", "Electric",
-                                       "Psychic", "Ice", "Dragon", "Dark"
-                                     };
+    const QStringList hiddenPowers =
+    {
+        "Fighting", "Flying", "Poison", "Ground",
+        "Rock", "Bug", "Ghost", "Steel",
+        "Fire", "Water", "Grass", "Electric",
+        "Psychic", "Ice", "Dragon", "Dark"
+    };
     return hiddenPowers[hiddenPower];
 }
 
@@ -188,29 +192,35 @@ QJsonObject Utility::getJson(const Profile &profile)
 
 QStringList Utility::getNatures()
 {
-    QStringList natures = { "None", "Hardy", "Lonely", "Brave", "Adamant",
-                            "Naughty", "Bold", "Docile", "Relaxed", "Impish",
-                            "Lax", "Timid", "Hasty", "Serious", "Jolly",
-                            "Naive", "Modest", "Mild", "Quiet", "Bashful",
-                            "Rash", "Calm", "Gentle", "Sassy", "Careful", "Quirky"
-                          };
+    QStringList natures =
+    {
+        "None", "Hardy", "Lonely", "Brave", "Adamant",
+        "Naughty", "Bold", "Docile", "Relaxed", "Impish",
+        "Lax", "Timid", "Hasty", "Serious", "Jolly",
+        "Naive", "Modest", "Mild", "Quiet", "Bashful",
+        "Rash", "Calm", "Gentle", "Sassy", "Careful", "Quirky"
+    };
     return natures;
 }
 
 QStringList Utility::getHiddenPowers()
 {
-    QStringList hiddenPowers = { "None", "Fighting", "Flying", "Poison",
-                                 "Ground", "Rock", "Bug", "Ghost",
-                                 "Steel", "Fire", "Water", "Grass",
-                                 "Electric", "Psychic", "Ice", "Dragon", "Dark"
-                               };
+    QStringList hiddenPowers =
+    {
+        "None", "Fighting", "Flying", "Poison",
+        "Ground", "Rock", "Bug", "Ghost",
+        "Steel", "Fire", "Water", "Grass",
+        "Electric", "Psychic", "Ice", "Dragon", "Dark"
+    };
     return hiddenPowers;
 }
 
 QStringList Utility::getGenderRatios()
 {
-    QStringList genderRatios = { "Genderless", "♂1 : ♀1", "♂7 : ♀1", "♂3 : ♀1",
-                                 "♂1 : ♀3", "♂1 : ♀7", "♂ Only", "♀ Only"
-                               };
+    QStringList genderRatios =
+    {
+        "Genderless", "♂1 : ♀1", "♂7 : ♀1", "♂3 : ♀1",
+        "♂1 : ♀3", "♂1 : ♀7", "♂ Only", "♀ Only"
+    };
     return genderRatios;
 }

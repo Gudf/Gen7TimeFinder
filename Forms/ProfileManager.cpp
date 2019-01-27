@@ -27,17 +27,19 @@ ProfileManager::ProfileManager(QWidget *parent) :
     ui->setupUi(this);
     setAttribute(Qt::WA_QuitOnClose, false);
     setAttribute(Qt::WA_DeleteOnClose);
-
-    model = new ProfileModel();
-    model->setModel(Utility::loadProfileList());
-    ui->tableView->setModel(model);
-    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 }
 
 ProfileManager::~ProfileManager()
 {
     delete ui;
-    delete model;
+}
+
+void ProfileManager::setupModels()
+{
+    model = new ProfileModel();
+    model->setModel(Utility::loadProfileList());
+    ui->tableView->setModel(model);
+    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 }
 
 void ProfileManager::on_pushButtonNew_clicked()
