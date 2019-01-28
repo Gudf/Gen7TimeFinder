@@ -1,6 +1,6 @@
 /*
  * This file is part of Gen7TimeFinder
- * Copyright (C) 2018 by Admiral_Fish
+ * Copyright (C) 2018-2019 by Admiral_Fish
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -19,9 +19,9 @@
 
 #include "IDFilter.hpp"
 
-IDFilter::IDFilter(const QString &idList, const QString &tsvList, int filterType)
+IDFilter::IDFilter(const QString &idList, const QString &tsvList, FilterType type)
 {
-    this->filterType = static_cast<FilterType>(filterType);
+    filterType = type;
     checkID = !idList.isEmpty();
     checkTSV = !tsvList.isEmpty();
 
@@ -29,26 +29,23 @@ IDFilter::IDFilter(const QString &idList, const QString &tsvList, int filterType
     {
         for (const QString &in : idList.split("\n"))
         {
-            switch (this->filterType)
+            switch (filterType)
             {
                 case FilterType::TID:
-                    tidFilter.append(in.toUInt());
-                    sidFilter.append(0);
+                    tidFilter.append(in.toUShort());
                     break;
                 case FilterType::SID:
-                    tidFilter.append(0);
-                    sidFilter.append(in.toUInt());
+                    sidFilter.append(in.toUShort());
                     break;
                 case FilterType::TIDSID:
                     {
                         QStringList split = in.split("/");
-                        tidFilter.append(split[0].toUInt());
-                        sidFilter.append(split[1].toUInt());
+                        tidFilter.append(split[0].toUShort());
+                        sidFilter.append(split[1].toUShort());
                         break;
                     }
                 case FilterType::G7TID:
-                    tidFilter.append(in.toUInt());
-                    sidFilter.append(0);
+                    g7Filter.append(in.toUInt());
                     break;
             }
         }
@@ -88,7 +85,7 @@ bool IDFilter::compare(const IDResult &frame)
                 }
                 break;
             case FilterType::G7TID:
-                if (!tidFilter.contains(frame.getDisplayTID()))
+                if (!g7Filter.contains(frame.getDisplayTID()))
                 {
                     return false;
                 }

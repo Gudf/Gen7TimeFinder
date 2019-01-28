@@ -1,6 +1,6 @@
 /*
  * This file is part of Gen7TimeFinder
- * Copyright (C) 2018 by Admiral_Fish
+ * Copyright (C) 2018-2019 by Admiral_Fish
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -26,10 +26,10 @@
 
 enum FilterType
 {
-    TID = 0,
-    SID = 1,
-    TIDSID = 2,
-    G7TID = 3
+    TID     = 1 << 0,
+    SID     = 1 << 1,
+    TIDSID  = 1 << 2,
+    G7TID   = 1 << 3
 };
 
 class IDFilter
@@ -37,13 +37,14 @@ class IDFilter
 
 public:
     IDFilter() = default;
-    IDFilter(const QString &idList, const QString &tsvList, int filterType);
+    IDFilter(const QString &idList, const QString &tsvList, FilterType type);
     bool compare(const IDResult &frame);
 
 private:
-    QVector<u32> tidFilter;
-    QVector<u32> sidFilter;
-    QVector<u32> tsvFilter;
+    QVector<u16> tidFilter;
+    QVector<u16> sidFilter;
+    QVector<u16> tsvFilter;
+    QVector<u32> g7Filter;
     FilterType filterType{};
     bool checkID{};
     bool checkTSV{};

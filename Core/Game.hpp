@@ -1,6 +1,6 @@
 /*
  * This file is part of Gen7TimeFinder
- * Copyright (C) 2018 by Admiral_Fish
+ * Copyright (C) 2018-2019 by Admiral_Fish
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,10 +22,12 @@
 
 enum Game
 {
-    Sun,
-    Moon,
-    UltraSun,
-    UltraMoon
+    Sun         = 1 << 0,
+    Moon        = 1 << 1,
+    SM          = Sun | Moon,
+    UltraSun    = 1 << 2,
+    UltraMoon   = 1 << 3,
+    USUM        = UltraSun | UltraMoon
 };
 
 #endif // GAME_HPP

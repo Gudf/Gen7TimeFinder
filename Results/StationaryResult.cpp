@@ -1,6 +1,6 @@
 /*
  * This file is part of Gen7TimeFinder
- * Copyright (C) 2018 by Admiral_Fish
+ * Copyright (C) 2018-2019 by Admiral_Fish
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,7 +23,7 @@ StationaryResult::StationaryResult(u32 seed, u16 tid, u16 sid)
 {
     this->seed = seed;
     tsv = (tid ^ sid) >> 4;
-    for (int &iv : ivs)
+    for (u8 &iv : ivs)
     {
         iv = -1;
     }
@@ -81,7 +81,7 @@ u16 StationaryResult::getPSV() const
     return psv;
 }
 
-int StationaryResult::getHiddenPower() const
+u8 StationaryResult::getHiddenPower() const
 {
     return hiddenPower;
 }
@@ -91,22 +91,22 @@ void StationaryResult::calcHiddenPower()
     hiddenPower = ((((ivs[0] & 1) + 2 * (ivs[1] & 1) + 4 * (ivs[2] & 1) + 8 * (ivs[5] & 1) + 16 * (ivs[3] & 1) + 32 * (ivs[4] & 1)) * 15) / 63);
 }
 
-int StationaryResult::getAbility() const
+u8 StationaryResult::getAbility() const
 {
     return ability;
 }
 
-void StationaryResult::setAbility(const int &value)
+void StationaryResult::setAbility(const u8 &value)
 {
     ability = value;
 }
 
-int StationaryResult::getNature() const
+u8 StationaryResult::getNature() const
 {
     return nature;
 }
 
-void StationaryResult::setNature(const int &value)
+void StationaryResult::setNature(const u8 &value)
 {
     nature = value;
 }
@@ -116,22 +116,22 @@ QString StationaryResult::getGenderString() const
     return gender == 0 ? "-" : gender == 1 ? "♂" : "♀";
 }
 
-int StationaryResult::getGender() const
+u8 StationaryResult::getGender() const
 {
     return gender;
 }
 
-void StationaryResult::setGender(const int &value)
+void StationaryResult::setGender(const u8 &value)
 {
     gender = value;
 }
 
-int StationaryResult::getIV(int i) const
+u8 StationaryResult::getIV(u8 i) const
 {
     return ivs[i];
 }
 
-void StationaryResult::setIV(const int &i, const int &value)
+void StationaryResult::setIV(const u8 &i, const u8 &value)
 {
     ivs[i] = value;
 }

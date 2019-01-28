@@ -1,6 +1,6 @@
 /*
  * This file is part of Gen7TimeFinder
- * Copyright (C) 2018 by Admiral_Fish
+ * Copyright (C) 2018-2019 by Admiral_Fish
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -100,4 +100,11 @@ QString Profile::getVersionString() const
 bool Profile::getShinyCharm() const
 {
     return shinyCharm;
+}
+
+bool operator==(const Profile &left, const Profile &right)
+{
+    return left.name == right.name && left.offset == right.offset && left.tick == right.tick &&
+           left.tid == right.tid && left.sid == right.sid && left.version == right.version &&
+           left.shinyCharm == right.shinyCharm;
 }

@@ -11,6 +11,7 @@ VERSION = 0.2.0
 DEFINES += QT_DEPRECATED_WARNINGS
 
 FORMS += \
+    Forms/Controls/IVFilter.ui \
     Forms/MainWindow.ui \
     Forms/ProfileCalibrater.ui \
     Forms/ProfileEditor.ui \
@@ -18,6 +19,7 @@ FORMS += \
 
 HEADERS += \
     Core/Game.hpp \
+    Core/Global.hpp \
     Core/IDFilter.hpp \
     Core/IDSearcher.hpp \
     Core/ProfileSearcher.hpp \
@@ -25,6 +27,11 @@ HEADERS += \
     Core/StationaryFilter.hpp \
     Core/StationarySearcher.hpp \
     Core/Utility.hpp \
+    Forms/Controls/CheckList.hpp \
+    Forms/Controls/IVFilter.hpp \
+    Forms/Controls/Label.hpp \
+    Forms/Controls/TableView.hpp \
+    Forms/Controls/TextBox.hpp \
     Forms/MainWindow.hpp \
     Forms/ProfileCalibrater.hpp \
     Forms/ProfileEditor.hpp \
@@ -44,6 +51,11 @@ SOURCES += \
     Core/StationaryFilter.cpp \
     Core/StationarySearcher.cpp \
     Core/Utility.cpp \
+    Forms/Controls/CheckList.cpp \
+    Forms/Controls/IVFilter.cpp \
+    Forms/Controls/Label.cpp \
+    Forms/Controls/TableView.cpp \
+    Forms/Controls/TextBox.cpp \
     Forms/MainWindow.cpp \
     Forms/ProfileCalibrater.cpp \
     Forms/ProfileEditor.cpp \
@@ -55,3 +67,5 @@ SOURCES += \
     Results/Profile.cpp \
     Results/StationaryResult.cpp \
     main.cpp
+
+

@@ -1,6 +1,6 @@
 /*
  * This file is part of Gen7TimeFinder
- * Copyright (C) 2018 by Admiral_Fish
+ * Copyright (C) 2018-2019 by Admiral_Fish
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -27,14 +27,12 @@
 #define CSR1 11
 #define N32 624
 
-// Constructor for SFMT
 SFMT::SFMT(u32 seed, u32 frames)
 {
     initialize(seed);
     advanceFrames(frames);
 }
 
-// Initializes
 void SFMT::initialize(u32 seed)
 {
     sfmt[0] = seed;
@@ -49,7 +47,6 @@ void SFMT::initialize(u32 seed)
     index = 0;
 }
 
-// Verify internal state vector
 void SFMT::periodCertificaion()
 {
     u32 inner = 0;
@@ -83,7 +80,6 @@ void SFMT::periodCertificaion()
     }
 }
 
-// Advances by n frames shuffling the correct amount of times
 void SFMT::advanceFrames(u32 frames)
 {
     u32 temp = index + (frames * 2);
@@ -95,7 +91,6 @@ void SFMT::advanceFrames(u32 frames)
     index = temp;
 }
 
-// Generates the next 32bit number
 u32 SFMT::nextUInt()
 {
     // Array reshuffle check
@@ -107,7 +102,6 @@ u32 SFMT::nextUInt()
     return sfmt[index++];
 }
 
-// Generates the next 64bit number
 u64 SFMT::nextULong()
 {
     // Array reshuffle check
@@ -121,7 +115,6 @@ u64 SFMT::nextULong()
     return high | (static_cast<u64>(low) << 32);
 }
 
-// Shuffles the array once all 624 states have been used
 void SFMT::shuffle()
 {
     int a = 0;

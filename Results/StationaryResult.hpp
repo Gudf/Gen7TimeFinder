@@ -1,6 +1,6 @@
 /*
  * This file is part of Gen7TimeFinder
- * Copyright (C) 2018 by Admiral_Fish
+ * Copyright (C) 2018-2019 by Admiral_Fish
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -21,10 +21,7 @@
 #define STATIONARYRESULT_HPP
 
 #include <QDateTime>
-#include <cstdint>
-
-using u32 = uint32_t;
-using u16 = uint16_t;
+#include <Core/Global.hpp>
 
 class StationaryResult
 {
@@ -42,17 +39,17 @@ public:
     u32 getFrame() const;
     void setFrame(const u32 &value);
     u16 getPSV() const;
-    int getHiddenPower() const;
+    u8 getHiddenPower() const;
     void calcHiddenPower();
-    int getAbility() const;
-    void setAbility(const int &value);
-    int getNature() const;
-    void setNature(const int &value);
+    u8 getAbility() const;
+    void setAbility(const u8 &value);
+    u8 getNature() const;
+    void setNature(const u8 &value);
     QString getGenderString() const;
-    int getGender() const;
-    void setGender(const int &value);
-    int getIV(int i) const;
-    void setIV(const int &i, const int &value);
+    u8 getGender() const;
+    void setGender(const u8 &value);
+    u8 getIV(u8 i) const;
+    void setIV(const u8 &i, const u8 &value);
     bool getShiny() const;
     void setShiny(bool value);
     bool getSynch() const;
@@ -62,10 +59,9 @@ private:
     QDateTime target;
     u32 seed{}, pid{}, ec{}, frame{};
     u16 psv{}, tsv{};
-    int hiddenPower{}, ability{}, nature{}, gender{};
-    int ivs[6] {};
-    bool shiny{};
-    bool synch{};
+    u8 hiddenPower{}, ability{}, nature{}, gender{};
+    u8 ivs[6] {};
+    bool shiny{}, synch{};
 
 };
 

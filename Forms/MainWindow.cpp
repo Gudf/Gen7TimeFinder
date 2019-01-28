@@ -1,6 +1,6 @@
 /*
  * This file is part of Gen7TimeFinder
- * Copyright (C) 2018 by Admiral_Fish
+ * Copyright (C) 2018-2019 by Admiral_Fish
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -42,28 +42,19 @@ MainWindow::~MainWindow()
 void MainWindow::setupModel()
 {
     stationaryModel = new StationaryModel(ui->tableViewStationary);
-    //eventModel = new EventModel();
-    //wildModel = new WildModel();
+    //eventModel = new EventModel(ui->tableViewEvent);
+    //wildModel = new WildModel(ui->tableViewWild);
     idModel = new IDModel(ui->tableViewID);
 
     ui->tableViewStationary->setModel(stationaryModel);
-    ui->tableViewStationary->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
-    ui->tableViewStationary->verticalHeader()->setVisible(false);
-
     //ui->tableViewEvent->setModel(eventModel);
-    ui->tableViewEvent->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
-    ui->tableViewEvent->verticalHeader()->setVisible(false);
-
     //ui->tableViewWild->setModel(wildModel);
-    ui->tableViewWild->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
-    ui->tableViewWild->verticalHeader()->setVisible(false);
-
     ui->tableViewID->setModel(idModel);
-    ui->tableViewID->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
-    ui->tableViewID->verticalHeader()->setVisible(false);
 
     ui->comboBoxStationaryNature->addItems(Utility::getNatures());
+    ui->comboBoxStationaryNature->setup();
     ui->comboBoxStationaryHiddenPower->addItems(Utility::getHiddenPowers());
+    ui->comboBoxStationaryHiddenPower->setup();
     ui->comboBoxStationarySynchNature->addItems(Utility::getNatures());
     ui->comboBoxStationaryGenderRatio->addItems(Utility::getGenderRatios());
 
@@ -75,6 +66,13 @@ void MainWindow::setupModel()
     ui->comboBoxStationaryGenderRatio->setItemData(5, 224);
     ui->comboBoxStationaryGenderRatio->setItemData(6, 1);
     ui->comboBoxStationaryGenderRatio->setItemData(7, 2);
+
+    ui->textBoxStationaryStartFrame->setValues(InputType::Frame32Bit);
+    ui->textBoxStationaryEndFrame->setValues(InputType::Frame32Bit);
+    ui->textBoxEventStartFrame->setValues(InputType::Frame32Bit);
+    ui->textBoxEventEndFrame->setValues(InputType::Frame32Bit);
+    ui->textBoxIDStartFrame->setValues(InputType::Frame32Bit);
+    ui->textBoxIDEndFrame->setValues(InputType::Frame32Bit);
 
     qRegisterMetaType<QVector<IDResult>>("QVector<IDResult>");
     qRegisterMetaType<QVector<StationaryResult>>("QVector<StationaryResult>");
@@ -115,8 +113,8 @@ void MainWindow::on_pushButtonStationarySearch_clicked()
 {
     QDateTime start = ui->dateTimeEditStationaryStartDate->dateTime();
     QDateTime end = ui->dateTimeEditStationaryEndDate->dateTime();
-    u32 frameStart = ui->lineEditStationaryStartFrame->text().toUInt();
-    u32 frameEnd = ui->lineEditStationaryEndFrame->text().toUInt();
+    u32 frameStart = ui->textBoxStationaryStartFrame->getUInt();
+    u32 frameEnd = ui->textBoxStationaryEndFrame->getUInt();
 
     if (start > end)
     {
@@ -137,18 +135,10 @@ void MainWindow::on_pushButtonStationarySearch_clicked()
     ui->pushButtonStationarySearch->setEnabled(false);
     ui->pushButtonStationaryCancel->setEnabled(true);
 
-    QVector<int> min =
-    {
-        ui->spinBoxStationaryMinHP->value(), ui->spinBoxStationaryMinAtk->value(), ui->spinBoxStationaryMinDef->value(),
-        ui->spinBoxStationaryMinSpA->value(), ui->spinBoxStationaryMinSpD->value(), ui->spinBoxStationaryMinSpe->value()
-    };
-    QVector<int> max =
-    {
-        ui->spinBoxStationaryMaxHP->value(), ui->spinBoxStationaryMaxAtk->value(), ui->spinBoxStationaryMaxDef->value(),
-        ui->spinBoxStationaryMaxSpA->value(), ui->spinBoxStationaryMaxSpD->value(), ui->spinBoxStationaryMaxSpe->value()
-    };
+    QVector<u8> min = ui->ivFilterStationary->getLower();
+    QVector<u8> max = ui->ivFilterStationary->getUpper();
 
-    StationaryFilter filter(min, max, ui->comboBoxStationaryNature->currentIndex() - 1, ui->comboBoxStationaryHiddenPower->currentIndex() - 1,
+    StationaryFilter filter(min, max, ui->comboBoxStationaryNature->getChecked(), ui->comboBoxStationaryHiddenPower->getChecked(),
                             ui->comboBoxStationaryAbility->currentIndex() - 1, ui->checkBoxStationaryShiny->isChecked(), ui->comboBoxStationaryGender->currentIndex());
 
     auto *search = new StationarySearcher(start, end, frameStart, frameEnd, ui->checkBoxStationary3IVs->isChecked(),
@@ -184,8 +174,8 @@ void MainWindow::on_pushButtonIDSearch_clicked()
 {
     QDateTime start = ui->dateTimeEditIDStartDate->dateTime();
     QDateTime end = ui->dateTimeEditIDEndDate->dateTime();
-    u32 frameStart = ui->lineEditIDStartFrame->text().toUInt();
-    u32 frameEnd = ui->lineEditIDEndFrame->text().toUInt();
+    u32 frameStart = ui->textBoxIDStartFrame->getUInt();
+    u32 frameEnd = ui->textBoxIDEndFrame->getUInt();
 
     if (start > end)
     {
@@ -206,25 +196,25 @@ void MainWindow::on_pushButtonIDSearch_clicked()
     ui->pushButtonIDSearch->setEnabled(false);
     ui->pushButtonIDCancel->setEnabled(true);
 
-    int filterType;
+    FilterType type;
     if (ui->radioButtonIDTID->isChecked())
     {
-        filterType = 0;
+        type = FilterType::TID;
     }
     else if (ui->radioButtonIDSID->isChecked())
     {
-        filterType = 1;
+        type = FilterType::SID;
     }
     else if (ui->radioButtonIDTIDSID->isChecked())
     {
-        filterType = 2;
+        type = FilterType::TIDSID;
     }
     else
     {
-        filterType = 3;
+        type = FilterType::G7TID;
     }
 
-    IDFilter filter(ui->textEditIDFilter->toPlainText(), ui->textEditTSVFilter->toPlainText(), filterType);
+    IDFilter filter(ui->textEditIDFilter->toPlainText(), ui->textEditTSVFilter->toPlainText(), type);
 
     auto *search = new IDSearcher(start, end, frameStart, frameEnd, profiles[ui->comboBoxProfiles->currentIndex()], filter);
     auto *timer = new QTimer();

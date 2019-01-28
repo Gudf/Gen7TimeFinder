@@ -45,7 +45,7 @@
     </widget>
    </item>
    <item row="0" column="3">
-    <widget class="QLineEdit" name="lineEditProfileTID">
+    <widget class="TextBox" name="textBoxProfileTID">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -96,7 +96,7 @@
     </widget>
    </item>
    <item row="1" column="3">
-    <widget class="QLineEdit" name="lineEditProfileSID">
+    <widget class="TextBox" name="textBoxProfileSID">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -116,7 +116,7 @@
     </widget>
    </item>
    <item row="2" column="1">
-    <widget class="QLineEdit" name="lineEditProfileTick">
+    <widget class="TextBox" name="textBoxProfileTick">
      <property name="maxLength">
       <number>8</number>
      </property>
@@ -137,7 +137,7 @@
     </widget>
    </item>
    <item row="3" column="1">
-    <widget class="QLineEdit" name="lineEditProfileOffset">
+    <widget class="TextBox" name="textBoxProfileOffset">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -164,13 +164,20 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>TextBox</class>
+   <extends>QLineEdit</extends>
+   <header>Forms/Controls/TextBox.hpp</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>lineEditProfileName</tabstop>
   <tabstop>comboBoxProfileVersion</tabstop>
-  <tabstop>lineEditProfileTick</tabstop>
-  <tabstop>lineEditProfileOffset</tabstop>
-  <tabstop>lineEditProfileTID</tabstop>
-  <tabstop>lineEditProfileSID</tabstop>
+  <tabstop>textBoxProfileTick</tabstop>
+  <tabstop>textBoxProfileOffset</tabstop>
+  <tabstop>textBoxProfileTID</tabstop>
+  <tabstop>textBoxProfileSID</tabstop>
   <tabstop>checkBoxShinyCharm</tabstop>
  </tabstops>
  <resources/>

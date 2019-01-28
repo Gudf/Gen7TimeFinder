@@ -1,6 +1,6 @@
 /*
  * This file is part of Gen7TimeFinder
- * Copyright (C) 2018 by Admiral_Fish
+ * Copyright (C) 2018-2019 by Admiral_Fish
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -36,10 +36,9 @@ ProfileManager::~ProfileManager()
 
 void ProfileManager::setupModels()
 {
-    model = new ProfileModel();
+    model = new ProfileModel(ui->tableView);
     model->setModel(Utility::loadProfileList());
     ui->tableView->setModel(model);
-    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 }
 
 void ProfileManager::on_pushButtonNew_clicked()
@@ -91,9 +90,13 @@ void ProfileManager::on_pushButtonDelete_clicked()
         return;
     }
 
-    Utility::deleteProfile(model->getProfile(r));
-    model->removeProfile(r);
-    emit updateProfiles();
+    QMessageBox message(QMessageBox::Question, tr("Delete profile"), tr("Are you sure you wish to delete this profile?"), QMessageBox::Yes | QMessageBox::No);
+    if (message.exec() == QMessageBox::Yes)
+    {
+        Utility::deleteProfile(model->getProfile(r));
+        model->removeProfile(r);
+        emit updateProfiles();
+    }
 }
 
 void ProfileManager::on_pushButtonDone_clicked()

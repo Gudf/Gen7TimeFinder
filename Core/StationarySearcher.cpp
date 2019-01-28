@@ -1,6 +1,6 @@
 /*
  * This file is part of Gen7TimeFinder
- * Copyright (C) 2018 by Admiral_Fish
+ * Copyright (C) 2018-2019 by Admiral_Fish
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -55,6 +55,7 @@ void StationarySearcher::run()
             return;
         }
 
+        QDateTime target = QDateTime::fromMSecsSinceEpoch(static_cast<qlonglong>(Utility::getNormalTime(epoch, profile.getOffset())), Qt::UTC);
         u32 initialSeed = Utility::calcInitialSeed(profile.getTick(), epoch);
         SFMT sfmt(initialSeed);
         sfmt.advanceFrames(startFrame);
@@ -104,7 +105,7 @@ void StationarySearcher::run()
             for (int i = ivCount; i > 0;)
             {
                 int tmp = seeds[frame + index++] % 6;
-                if (result.getIV(tmp) == -1)
+                if (result.getIV(tmp) == 255)
                 {
                     result.setIV(tmp, 31);
                     i--;
@@ -113,7 +114,7 @@ void StationarySearcher::run()
 
             for (int i = 0; i < 6; i++)
             {
-                if (result.getIV(i) == -1)
+                if (result.getIV(i) == 255)
                 {
                     result.setIV(i, seeds[frame + index++] & 0x1f);
                 }
@@ -129,7 +130,6 @@ void StationarySearcher::run()
 
             if (filter.compare(result))
             {
-                QDateTime target = QDateTime::fromMSecsSinceEpoch(static_cast<qlonglong>(Utility::getNormalTime(epoch, profile.getOffset())), Qt::UTC);
                 result.setTarget(target);
                 result.setFrame(frame + startFrame);
 

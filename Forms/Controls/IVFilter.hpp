@@ -17,44 +17,47 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef PROFILEEDITOR_HPP
-#define PROFILEEDITOR_HPP
+#ifndef IVFILTER_HPP
+#define IVFILTER_HPP
 
-#include <QDialog>
-#include <QMessageBox>
-#include <Results/Profile.hpp>
+#include <QWidget>
+#include <Core/Global.hpp>
 
 namespace Ui
 {
-    class ProfileEditor;
+    class IVFilter;
 }
 
-class ProfileEditor : public QDialog
+class IVFilter : public QWidget
 {
     Q_OBJECT
 
-signals:
-    void newProfile(Profile);
-    void editProfile(Profile, Profile);
-
 public:
-    explicit ProfileEditor(QWidget *parent = nullptr);
-    explicit ProfileEditor(const Profile &profile, QWidget *parent = nullptr);
-    ~ProfileEditor() override;
-    Profile getNewProfile();
-    Profile getOriginal();
+    explicit IVFilter(QWidget *parent = nullptr);
+    ~IVFilter() override;
+    QVector<u8> getLower() const;
+    QVector<u8> getUpper() const;
+    void clearValues();
+    void setValues(u8 hp, u8 atk, u8 def, u8 spa, u8 spd, u8 spe);
 
 private:
-    Ui::ProfileEditor *ui;
-    Profile original;
-    Profile fresh;
+    Ui::IVFilter *ui;
 
-    void setupModels();
+    void changeHP(int min, int max);
+    void changeAtk(int min, int max);
+    void changeDef(int min, int max);
+    void changeSpA(int min, int max);
+    void changeSpD(int min, int max);
+    void changeSpe(int min, int max);
 
 private slots:
-    void on_buttonBox_accepted();
-    void on_buttonBox_rejected();
+    void changeCompareHP(int type);
+    void changeCompareAtk(int type);
+    void changeCompareDef(int type);
+    void changeCompareSpA(int type);
+    void changeCompareSpD(int type);
+    void changeCompareSpe(int type);
 
 };
 
-#endif // PROFILEEDITOR_HPP
+#endif // IVFILTER_HPP

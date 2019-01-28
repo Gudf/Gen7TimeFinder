@@ -17,29 +17,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef STATIONARYMODEL_HPP
-#define STATIONARYMODEL_HPP
+#include "Label.hpp"
 
-#include <QAbstractTableModel>
-#include <QVector>
-#include <Core/Utility.hpp>
-#include <Results/StationaryResult.hpp>
-
-class StationaryModel : public QAbstractTableModel
+Label::Label(QWidget *parent) : QLabel(parent)
 {
+}
 
-public:
-    StationaryModel(QObject *parent = nullptr);
-    void addItems(const QVector<StationaryResult> &frames);
-    void clear();
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
-    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
-    QVariant data(const QModelIndex &index, int role) const override;
-    QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
-
-private:
-    QVector<StationaryResult> model;
-
-};
-
-#endif // STATIONARYMODEL_HPP
+void Label::mousePressEvent(QMouseEvent *event)
+{
+    if (event->type() == QMouseEvent::MouseButtonPress)
+    {
+        emit pressed(event->modifiers());
+    }
+}

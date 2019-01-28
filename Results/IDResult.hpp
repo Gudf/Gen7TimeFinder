@@ -1,6 +1,6 @@
 /*
  * This file is part of Gen7TimeFinder
- * Copyright (C) 2018 by Admiral_Fish
+ * Copyright (C) 2018-2019 by Admiral_Fish
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,10 +22,7 @@
 
 #include <QDateTime>
 #include <QString>
-#include <cstdint>
-
-using u32 = uint32_t;
-using u16 = uint16_t;
+#include <Core/Global.hpp>
 
 class IDResult
 {
@@ -44,12 +41,8 @@ public:
 
 private:
     QDateTime target;
-    u32 seed{}, frame{};
-    u16 tid{};
-    u16 sid{};
-    u16 tsv{};
-    u32 displayTID{};
-
+    u32 seed{}, frame{}, displayTID{};
+    u16 tid{}, sid{}, tsv{};
 };
 
 #endif // IDRESULT_HPP

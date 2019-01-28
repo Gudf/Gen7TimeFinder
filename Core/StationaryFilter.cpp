@@ -1,6 +1,6 @@
 /*
  * This file is part of Gen7TimeFinder
- * Copyright (C) 2018 by Admiral_Fish
+ * Copyright (C) 2018-2019 by Admiral_Fish
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -19,7 +19,7 @@
 
 #include "StationaryFilter.hpp"
 
-StationaryFilter::StationaryFilter(const QVector<int> &minIV, const QVector<int> &maxIV, int nature, int hiddenPower, int ability, bool shiny, int gender)
+StationaryFilter::StationaryFilter(const QVector<u8> &minIV, const QVector<u8> &maxIV, const QVector<bool> &nature, const QVector<bool> &hiddenPower, u8 ability, bool shiny, u8 gender)
 {
     this->minIV = minIV;
     this->maxIV = maxIV;
@@ -32,32 +32,26 @@ StationaryFilter::StationaryFilter(const QVector<int> &minIV, const QVector<int>
 
 bool StationaryFilter::compare(const StationaryResult &frame)
 {
-    for (int i = 0; i < 6; i++)
+    for (u8 i = 0; i < 6; i++)
     {
-        int iv = frame.getIV(i);
+        u8 iv = frame.getIV(i);
         if (iv < minIV[i] || iv > maxIV[i])
         {
             return false;
         }
     }
 
-    if (nature != -1)
+    if (!nature[frame.getNature()])
     {
-        if (nature != frame.getNature())
-        {
-            return false;
-        }
+        return false;
     }
 
-    if (hiddenPower != -1)
+    if (!hiddenPower[frame.getHiddenPower()])
     {
-        if (hiddenPower != frame.getHiddenPower())
-        {
-            return false;
-        }
+        return false;
     }
 
-    if (ability != -1)
+    if (ability != 255)
     {
         if (ability != frame.getAbility())
         {

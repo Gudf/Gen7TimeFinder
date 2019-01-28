@@ -1,6 +1,6 @@
 /*
  * This file is part of Gen7TimeFinder
- * Copyright (C) 2018 by Admiral_Fish
+ * Copyright (C) 2018-2019 by Admiral_Fish
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -132,9 +132,7 @@ void Utility::deleteProfile(const Profile &profile)
         {
             Profile old(gen7[i].toObject());
 
-            if (profile.getName() == old.getName() && profile.getOffset() == old.getOffset() && profile.getTick() == old.getTick() &&
-                    profile.getTID() == old.getTID() && profile.getSID() == old.getSID() &&
-                    profile.getVersion() == old.getVersion() && profile.getShinyCharm() == old.getShinyCharm())
+            if (profile == old)
             {
                 gen7.removeAt(i);
                 profiles["gen7"] = gen7;
@@ -160,9 +158,7 @@ void Utility::updateProfile(const Profile &original, const Profile &edit)
         {
             Profile old(i.toObject());
 
-            if (original.getName() == old.getName() && original.getOffset() == old.getOffset() && original.getTick() == old.getTick() &&
-                    original.getTID() == old.getTID() && original.getSID() == old.getSID() &&
-                    original.getVersion() == old.getVersion() && original.getShinyCharm() == old.getShinyCharm())
+            if (original == old)
             {
                 i = getJson(edit);
                 profiles["gen7"] = gen7;
@@ -194,11 +190,11 @@ QStringList Utility::getNatures()
 {
     QStringList natures =
     {
-        "None", "Hardy", "Lonely", "Brave", "Adamant",
-        "Naughty", "Bold", "Docile", "Relaxed", "Impish",
-        "Lax", "Timid", "Hasty", "Serious", "Jolly",
-        "Naive", "Modest", "Mild", "Quiet", "Bashful",
-        "Rash", "Calm", "Gentle", "Sassy", "Careful", "Quirky"
+        "Hardy", "Lonely", "Brave", "Adamant", "Naughty",
+        "Bold", "Docile", "Relaxed", "Impish", "Lax",
+        "Timid", "Hasty", "Serious", "Jolly", "Naive",
+        "Modest", "Mild", "Quiet", "Bashful", "Rash",
+        "Calm", "Gentle", "Sassy", "Careful", "Quirky"
     };
     return natures;
 }
@@ -207,10 +203,10 @@ QStringList Utility::getHiddenPowers()
 {
     QStringList hiddenPowers =
     {
-        "None", "Fighting", "Flying", "Poison",
-        "Ground", "Rock", "Bug", "Ghost",
-        "Steel", "Fire", "Water", "Grass",
-        "Electric", "Psychic", "Ice", "Dragon", "Dark"
+        "Fighting", "Flying", "Poison", "Ground",
+        "Rock", "Bug", "Ghost", "Steel",
+        "Fire", "Water", "Grass", "Electric",
+        "Psychic", "Ice", "Dragon", "Dark"
     };
     return hiddenPowers;
 }

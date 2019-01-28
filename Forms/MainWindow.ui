@@ -6,18 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
+    <width>1200</width>
     <height>600</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1000</width>
+    <width>1200</width>
     <height>600</height>
    </size>
   </property>
   <property name="windowTitle">
-   <string>Gen7 Time Finder 0.2.0</string>
+   <string>Gen7 Time Finder 0.3.0</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -38,7 +38,7 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_5">
         <item row="2" column="0" colspan="3">
-         <widget class="QTableView" name="tableViewStationary">
+         <widget class="TableView" name="tableViewStationary">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -47,6 +47,9 @@
           </property>
           <attribute name="horizontalHeaderDefaultSectionSize">
            <number>60</number>
+          </attribute>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
           </attribute>
          </widget>
         </item>
@@ -169,7 +172,7 @@
             </widget>
            </item>
            <item row="2" column="1" colspan="2">
-            <widget class="QLineEdit" name="lineEditStationaryStartFrame">
+            <widget class="TextBox" name="textBoxStationaryStartFrame">
              <property name="text">
               <string notr="true">478</string>
              </property>
@@ -261,7 +264,7 @@
             </widget>
            </item>
            <item row="2" column="3" colspan="2">
-            <widget class="QLineEdit" name="lineEditStationaryEndFrame">
+            <widget class="TextBox" name="textBoxStationaryEndFrame">
              <property name="text">
               <string notr="true">10000</string>
              </property>
@@ -284,7 +287,7 @@
          <widget class="QGroupBox" name="groupBoxStationaryFilter">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>2</horstretch>
+            <horstretch>3</horstretch>
             <verstretch>1</verstretch>
            </sizepolicy>
           </property>
@@ -292,7 +295,10 @@
            <string>Filters</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_11">
-           <item row="0" column="2">
+           <item row="0" column="0" rowspan="5">
+            <widget class="IVFilter" name="ivFilterStationary" native="true"/>
+           </item>
+           <item row="0" column="1">
             <widget class="QLabel" name="labelStationaryNature">
              <property name="frameShape">
               <enum>QFrame::NoFrame</enum>
@@ -302,27 +308,41 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="3">
-            <widget class="QComboBox" name="comboBoxStationaryNature"/>
+           <item row="0" column="2">
+            <widget class="CheckList" name="comboBoxStationaryNature"/>
            </item>
-           <item row="1" column="2">
+           <item row="0" column="3">
+            <widget class="QPushButton" name="pushButtonStationaryAnyNature">
+             <property name="text">
+              <string>Any</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
             <widget class="QLabel" name="labelStationaryHiddenPower">
              <property name="text">
               <string>Hidden Power</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="3">
-            <widget class="QComboBox" name="comboBoxStationaryHiddenPower"/>
+           <item row="1" column="2">
+            <widget class="CheckList" name="comboBoxStationaryHiddenPower"/>
            </item>
-           <item row="2" column="2">
+           <item row="1" column="3">
+            <widget class="QPushButton" name="pushButtonStationaryAnyHiddenPower">
+             <property name="text">
+              <string>Any</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
             <widget class="QLabel" name="labelStationaryAbility">
              <property name="text">
               <string>Ability</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="3">
+           <item row="2" column="2">
             <widget class="QComboBox" name="comboBoxStationaryAbility">
              <item>
               <property name="text">
@@ -346,14 +366,14 @@
              </item>
             </widget>
            </item>
-           <item row="3" column="2">
+           <item row="3" column="1">
             <widget class="QLabel" name="labelStationaryGender">
              <property name="text">
               <string>Gender</string>
              </property>
             </widget>
            </item>
-           <item row="3" column="3">
+           <item row="3" column="2">
             <widget class="QComboBox" name="comboBoxStationaryGender">
              <item>
               <property name="text">
@@ -372,167 +392,19 @@
              </item>
             </widget>
            </item>
-           <item row="4" column="2">
+           <item row="4" column="1">
             <widget class="QLabel" name="labelStationaryShiny">
              <property name="text">
               <string>Shiny</string>
              </property>
             </widget>
            </item>
-           <item row="4" column="3">
+           <item row="4" column="2">
             <widget class="QCheckBox" name="checkBoxStationaryShiny">
              <property name="text">
               <string/>
              </property>
             </widget>
-           </item>
-           <item row="0" column="0" rowspan="5" colspan="2">
-            <layout class="QGridLayout" name="gridLayout_10">
-             <item row="0" column="2">
-              <widget class="QSpinBox" name="spinBoxStationaryMaxHP">
-               <property name="maximum">
-                <number>31</number>
-               </property>
-               <property name="value">
-                <number>31</number>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="0">
-              <widget class="QLabel" name="labelStationarySpD">
-               <property name="text">
-                <string>SpD</string>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="2">
-              <widget class="QSpinBox" name="spinBoxStationaryMaxSpe">
-               <property name="maximum">
-                <number>31</number>
-               </property>
-               <property name="value">
-                <number>31</number>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="2">
-              <widget class="QSpinBox" name="spinBoxStationaryMaxAtk">
-               <property name="maximum">
-                <number>31</number>
-               </property>
-               <property name="value">
-                <number>31</number>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QSpinBox" name="spinBoxStationaryMinDef">
-               <property name="maximum">
-                <number>31</number>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="2">
-              <widget class="QSpinBox" name="spinBoxStationaryMaxSpA">
-               <property name="maximum">
-                <number>31</number>
-               </property>
-               <property name="value">
-                <number>31</number>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0">
-              <widget class="QLabel" name="labelStationaryHP">
-               <property name="text">
-                <string>HP</string>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="1">
-              <widget class="QSpinBox" name="spinBoxStationaryMinSpD">
-               <property name="maximum">
-                <number>31</number>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QSpinBox" name="spinBoxStationaryMinHP">
-               <property name="maximum">
-                <number>31</number>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="labelStationaryAtk">
-               <property name="text">
-                <string>Atk</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QSpinBox" name="spinBoxStationaryMinAtk">
-               <property name="maximum">
-                <number>31</number>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="labelStationaryDef">
-               <property name="text">
-                <string>Def</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="2">
-              <widget class="QSpinBox" name="spinBoxStationaryMaxDef">
-               <property name="maximum">
-                <number>31</number>
-               </property>
-               <property name="value">
-                <number>31</number>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="1">
-              <widget class="QSpinBox" name="spinBoxStationaryMinSpe">
-               <property name="maximum">
-                <number>31</number>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="0">
-              <widget class="QLabel" name="labelStationarySpe">
-               <property name="text">
-                <string>Spe</string>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="2">
-              <widget class="QSpinBox" name="spinBoxStationaryMaxSpD">
-               <property name="maximum">
-                <number>31</number>
-               </property>
-               <property name="value">
-                <number>31</number>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="labelStationarySpA">
-               <property name="text">
-                <string>SpA</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="1">
-              <widget class="QSpinBox" name="spinBoxStationaryMinSpA">
-               <property name="maximum">
-                <number>31</number>
-               </property>
-              </widget>
-             </item>
-            </layout>
            </item>
           </layout>
          </widget>
@@ -871,14 +743,14 @@
             </widget>
            </item>
            <item row="2" column="1">
-            <widget class="QLineEdit" name="lineEditEventStartFrame">
+            <widget class="TextBox" name="textBoxEventStartFrame">
              <property name="text">
               <string notr="true">478</string>
              </property>
             </widget>
            </item>
            <item row="2" column="2">
-            <widget class="QLineEdit" name="lineEditEventEndFrame">
+            <widget class="TextBox" name="textBoxEventEndFrame">
              <property name="text">
               <string notr="true">10000</string>
              </property>
@@ -908,14 +780,17 @@
          <widget class="QGroupBox" name="groupBoxEventFilter">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>2</horstretch>
+            <horstretch>3</horstretch>
             <verstretch>1</verstretch>
            </sizepolicy>
           </property>
           <property name="title">
            <string>Filters</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout_16">
+          <layout class="QGridLayout" name="gridLayout_10">
+           <item row="0" column="0" rowspan="5">
+            <widget class="IVFilter" name="ivFilterEvent" native="true"/>
+           </item>
            <item row="0" column="1">
             <widget class="QLabel" name="labelEventNature">
              <property name="frameShape">
@@ -927,7 +802,14 @@
             </widget>
            </item>
            <item row="0" column="2">
-            <widget class="QComboBox" name="comboBoxEventNature"/>
+            <widget class="CheckList" name="comboBoxEventNature"/>
+           </item>
+           <item row="0" column="3">
+            <widget class="QPushButton" name="pushButtonEventAnyNature">
+             <property name="text">
+              <string>Any</string>
+             </property>
+            </widget>
            </item>
            <item row="1" column="1">
             <widget class="QLabel" name="labelEventHiddenPower">
@@ -937,7 +819,14 @@
             </widget>
            </item>
            <item row="1" column="2">
-            <widget class="QComboBox" name="comboBoxEventHiddenPower"/>
+            <widget class="CheckList" name="comboBoxEventHiddenPower"/>
+           </item>
+           <item row="1" column="3">
+            <widget class="QPushButton" name="pushButtonEventAnyHiddenPower">
+             <property name="text">
+              <string>Any</string>
+             </property>
+            </widget>
            </item>
            <item row="2" column="1">
             <widget class="QLabel" name="labelEventAbility">
@@ -1010,159 +899,11 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="0" rowspan="5">
-            <layout class="QGridLayout" name="gridLayout_15">
-             <item row="0" column="2">
-              <widget class="QSpinBox" name="spinBoxEventMaxHP">
-               <property name="maximum">
-                <number>31</number>
-               </property>
-               <property name="value">
-                <number>31</number>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="0">
-              <widget class="QLabel" name="labelEventSpD">
-               <property name="text">
-                <string>SpD</string>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="2">
-              <widget class="QSpinBox" name="spinBoxEventMaxSpe">
-               <property name="maximum">
-                <number>31</number>
-               </property>
-               <property name="value">
-                <number>31</number>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="2">
-              <widget class="QSpinBox" name="spinBoxEventMaxAtk">
-               <property name="maximum">
-                <number>31</number>
-               </property>
-               <property name="value">
-                <number>31</number>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QSpinBox" name="spinBoxEventMinDef">
-               <property name="maximum">
-                <number>31</number>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="2">
-              <widget class="QSpinBox" name="spinBoxEventMaxSpA">
-               <property name="maximum">
-                <number>31</number>
-               </property>
-               <property name="value">
-                <number>31</number>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0">
-              <widget class="QLabel" name="labelEventHP">
-               <property name="text">
-                <string>HP</string>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="1">
-              <widget class="QSpinBox" name="spinBoxEventMinSpD">
-               <property name="maximum">
-                <number>31</number>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QSpinBox" name="spinBoxEventMinHP">
-               <property name="maximum">
-                <number>31</number>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="labelEventAtk">
-               <property name="text">
-                <string>Atk</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QSpinBox" name="spinBoxEventMinAtk">
-               <property name="maximum">
-                <number>31</number>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="labelEventDef">
-               <property name="text">
-                <string>Def</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="2">
-              <widget class="QSpinBox" name="spinBoxEventMaxDef">
-               <property name="maximum">
-                <number>31</number>
-               </property>
-               <property name="value">
-                <number>31</number>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="1">
-              <widget class="QSpinBox" name="spinBoxEventMinSpe">
-               <property name="maximum">
-                <number>31</number>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="0">
-              <widget class="QLabel" name="labelEventSpe">
-               <property name="text">
-                <string>Spe</string>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="2">
-              <widget class="QSpinBox" name="spinBoxEventMaxSpD">
-               <property name="maximum">
-                <number>31</number>
-               </property>
-               <property name="value">
-                <number>31</number>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="labelEventSpA">
-               <property name="text">
-                <string>SpA</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="1">
-              <widget class="QSpinBox" name="spinBoxEventMinSpA">
-               <property name="maximum">
-                <number>31</number>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
           </layout>
          </widget>
         </item>
         <item row="2" column="0" colspan="3">
-         <widget class="QTableView" name="tableViewEvent">
+         <widget class="TableView" name="tableViewEvent">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -1171,6 +912,9 @@
           </property>
           <attribute name="horizontalHeaderDefaultSectionSize">
            <number>60</number>
+          </attribute>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
           </attribute>
          </widget>
         </item>
@@ -1238,7 +982,7 @@
             <widget class="QComboBox" name="comboBox_2"/>
            </item>
            <item row="4" column="1">
-            <widget class="QCheckBox" name="checkBox_9">
+            <widget class="QCheckBox" name="checkBoxEventNatureLocked">
              <property name="text">
               <string>Nature Locked</string>
              </property>
@@ -1248,7 +992,7 @@
             <widget class="QComboBox" name="comboBox_3"/>
            </item>
            <item row="5" column="1">
-            <widget class="QCheckBox" name="checkBox_10">
+            <widget class="QCheckBox" name="checkBoxEventGenderLocked">
              <property name="text">
               <string>Gender Locked</string>
              </property>
@@ -1382,7 +1126,7 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="2" column="0" colspan="2">
-         <widget class="QTableView" name="tableViewWild">
+         <widget class="TableView" name="tableViewWild">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -1391,6 +1135,9 @@
           </property>
           <attribute name="horizontalHeaderDefaultSectionSize">
            <number>60</number>
+          </attribute>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
           </attribute>
          </widget>
         </item>
@@ -1435,7 +1182,7 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="2" column="0" colspan="2">
-         <widget class="QTableView" name="tableViewID">
+         <widget class="TableView" name="tableViewID">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -1444,6 +1191,9 @@
           </property>
           <attribute name="horizontalHeaderDefaultSectionSize">
            <number>60</number>
+          </attribute>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
           </attribute>
          </widget>
         </item>
@@ -1559,14 +1309,14 @@
             </widget>
            </item>
            <item row="2" column="1">
-            <widget class="QLineEdit" name="lineEditIDStartFrame">
+            <widget class="TextBox" name="textBoxIDStartFrame">
              <property name="text">
               <string notr="true">1132</string>
              </property>
             </widget>
            </item>
            <item row="2" column="2">
-            <widget class="QLineEdit" name="lineEditIDEndFrame">
+            <widget class="TextBox" name="textBoxIDEndFrame">
              <property name="text">
               <string notr="true">10000</string>
              </property>
@@ -1763,204 +1513,129 @@
       <property name="title">
        <string>Profiles</string>
       </property>
-      <widget class="QLabel" name="labelProfile">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>23</y>
-         <width>30</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Profile</string>
-       </property>
-      </widget>
-      <widget class="QComboBox" name="comboBoxProfiles">
-       <property name="geometry">
-        <rect>
-         <x>46</x>
-         <y>23</y>
-         <width>71</width>
-         <height>20</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QLabel" name="labelProfileTID">
-       <property name="geometry">
-        <rect>
-         <x>179</x>
-         <y>23</y>
-         <width>17</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>TID</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="labelProfileTIDValue">
-       <property name="geometry">
-        <rect>
-         <x>312</x>
-         <y>23</y>
-         <width>30</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string notr="true">12345</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="labelProfileGame">
-       <property name="geometry">
-        <rect>
-         <x>445</x>
-         <y>23</y>
-         <width>27</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Game</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="labelProfileGameValue">
-       <property name="geometry">
-        <rect>
-         <x>579</x>
-         <y>23</y>
-         <width>44</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Ultra Sun</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="labelProfileShinyCharm">
-       <property name="geometry">
-        <rect>
-         <x>447</x>
-         <y>50</y>
-         <width>60</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Shiny Charm</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="labelProfileShinyCharmValue">
-       <property name="geometry">
-        <rect>
-         <x>580</x>
-         <y>50</y>
-         <width>16</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>No</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="pushButtonProfileManager">
-       <property name="geometry">
-        <rect>
-         <x>46</x>
-         <y>49</y>
-         <width>75</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Manager</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="labelProfileSID">
-       <property name="geometry">
-        <rect>
-         <x>179</x>
-         <y>49</y>
-         <width>17</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>SID</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="labelProfileSIDValue">
-       <property name="geometry">
-        <rect>
-         <x>312</x>
-         <y>49</y>
-         <width>30</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string notr="true">54321</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="labelProfileOffset">
-       <property name="geometry">
-        <rect>
-         <x>716</x>
-         <y>49</y>
-         <width>31</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Offset</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="labelProfileOffsetValue">
-       <property name="geometry">
-        <rect>
-         <x>850</x>
-         <y>49</y>
-         <width>30</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>17</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="labelProfileTick">
-       <property name="geometry">
-        <rect>
-         <x>710</x>
-         <y>20</y>
-         <width>47</width>
-         <height>13</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Tick</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="labelProfileTickValue">
-       <property name="geometry">
-        <rect>
-         <x>850</x>
-         <y>20</y>
-         <width>47</width>
-         <height>13</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>383e329</string>
-       </property>
-      </widget>
+      <layout class="QGridLayout" name="gridLayout_15">
+       <item row="0" column="0">
+        <widget class="QLabel" name="labelProfile">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Profile</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QComboBox" name="comboBoxProfiles"/>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLabel" name="labelProfileTID">
+         <property name="text">
+          <string>TID</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QLabel" name="labelProfileTIDValue">
+         <property name="text">
+          <string notr="true">12345</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="4" rowspan="2">
+        <widget class="Line" name="line">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="5">
+        <widget class="QLabel" name="labelProfileGame">
+         <property name="text">
+          <string>Game</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="6">
+        <widget class="QLabel" name="labelProfileGameValue">
+         <property name="text">
+          <string>Ultra Sun</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="7" rowspan="2">
+        <widget class="Line" name="line_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="8">
+        <widget class="QLabel" name="labelProfileTick">
+         <property name="text">
+          <string>Tick</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="9">
+        <widget class="QLabel" name="labelProfileTickValue">
+         <property name="text">
+          <string>383e329</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QPushButton" name="pushButtonProfileManager">
+         <property name="text">
+          <string>Manager</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLabel" name="labelProfileSID">
+         <property name="text">
+          <string>SID</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="3">
+        <widget class="QLabel" name="labelProfileSIDValue">
+         <property name="text">
+          <string notr="true">54321</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="5">
+        <widget class="QLabel" name="labelProfileShinyCharm">
+         <property name="text">
+          <string>Shiny Charm</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="6">
+        <widget class="QLabel" name="labelProfileShinyCharmValue">
+         <property name="text">
+          <string>No</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="8">
+        <widget class="QLabel" name="labelProfileOffset">
+         <property name="text">
+          <string>Offset</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="9">
+        <widget class="QLabel" name="labelProfileOffsetValue">
+         <property name="text">
+          <string>17</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>
@@ -1970,7 +1645,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1000</width>
+     <width>1200</width>
      <height>21</height>
     </rect>
    </property>
@@ -1989,14 +1664,40 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>TableView</class>
+   <extends>QTableView</extends>
+   <header>Forms/Controls/TableView.hpp</header>
+  </customwidget>
+  <customwidget>
+   <class>TextBox</class>
+   <extends>QLineEdit</extends>
+   <header>Forms/Controls/TextBox.hpp</header>
+  </customwidget>
+  <customwidget>
+   <class>IVFilter</class>
+   <extends>QWidget</extends>
+   <header>Forms/Controls/IVFilter.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CheckList</class>
+   <extends>QComboBox</extends>
+   <header>Forms/Controls/CheckList.hpp</header>
+   <slots>
+    <slot>resetChecks()</slot>
+   </slots>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>comboBoxProfiles</tabstop>
   <tabstop>pushButtonProfileManager</tabstop>
   <tabstop>tabSelection</tabstop>
   <tabstop>dateTimeEditStationaryStartDate</tabstop>
   <tabstop>dateTimeEditStationaryEndDate</tabstop>
-  <tabstop>lineEditStationaryStartFrame</tabstop>
-  <tabstop>lineEditStationaryEndFrame</tabstop>
+  <tabstop>textBoxStationaryStartFrame</tabstop>
+  <tabstop>textBoxStationaryEndFrame</tabstop>
   <tabstop>comboBoxStationaryCategory</tabstop>
   <tabstop>comboBoxStationaryPokemon</tabstop>
   <tabstop>comboBoxStationarySynchNature</tabstop>
@@ -2006,18 +1707,6 @@
   <tabstop>checkBoxStationaryShinyLock</tabstop>
   <tabstop>checkBoxStationaryAbilityLock</tabstop>
   <tabstop>comboBoxStationaryAbilityLock</tabstop>
-  <tabstop>spinBoxStationaryMinHP</tabstop>
-  <tabstop>spinBoxStationaryMaxHP</tabstop>
-  <tabstop>spinBoxStationaryMinAtk</tabstop>
-  <tabstop>spinBoxStationaryMaxAtk</tabstop>
-  <tabstop>spinBoxStationaryMinDef</tabstop>
-  <tabstop>spinBoxStationaryMaxDef</tabstop>
-  <tabstop>spinBoxStationaryMinSpA</tabstop>
-  <tabstop>spinBoxStationaryMaxSpA</tabstop>
-  <tabstop>spinBoxStationaryMinSpD</tabstop>
-  <tabstop>spinBoxStationaryMaxSpD</tabstop>
-  <tabstop>spinBoxStationaryMinSpe</tabstop>
-  <tabstop>spinBoxStationaryMaxSpe</tabstop>
   <tabstop>comboBoxStationaryNature</tabstop>
   <tabstop>comboBoxStationaryHiddenPower</tabstop>
   <tabstop>comboBoxStationaryAbility</tabstop>
@@ -2028,8 +1717,8 @@
   <tabstop>tableViewStationary</tabstop>
   <tabstop>dateTimeEditEventStartDate</tabstop>
   <tabstop>dateTimeEditEventEndDate</tabstop>
-  <tabstop>lineEditEventStartFrame</tabstop>
-  <tabstop>lineEditEventEndFrame</tabstop>
+  <tabstop>textBoxEventStartFrame</tabstop>
+  <tabstop>textBoxEventEndFrame</tabstop>
   <tabstop>checkBoxEventHP</tabstop>
   <tabstop>spinBoxEventHP</tabstop>
   <tabstop>checkBoxEventAtk</tabstop>
@@ -2048,23 +1737,11 @@
   <tabstop>comboBoxEventPIDType</tabstop>
   <tabstop>checkBoxEventAbilityLock</tabstop>
   <tabstop>comboBox_2</tabstop>
-  <tabstop>checkBox_9</tabstop>
+  <tabstop>checkBoxEventNatureLocked</tabstop>
   <tabstop>comboBox_3</tabstop>
-  <tabstop>checkBox_10</tabstop>
+  <tabstop>checkBoxEventGenderLocked</tabstop>
   <tabstop>comboBox_4</tabstop>
   <tabstop>comboBoxEventGenderRatio</tabstop>
-  <tabstop>spinBoxEventMinHP</tabstop>
-  <tabstop>spinBoxEventMaxHP</tabstop>
-  <tabstop>spinBoxEventMinAtk</tabstop>
-  <tabstop>spinBoxEventMaxAtk</tabstop>
-  <tabstop>spinBoxEventMinDef</tabstop>
-  <tabstop>spinBoxEventMaxDef</tabstop>
-  <tabstop>spinBoxEventMinSpA</tabstop>
-  <tabstop>spinBoxEventMaxSpA</tabstop>
-  <tabstop>spinBoxEventMinSpD</tabstop>
-  <tabstop>spinBoxEventMaxSpD</tabstop>
-  <tabstop>spinBoxEventMinSpe</tabstop>
-  <tabstop>spinBoxEventMaxSpe</tabstop>
   <tabstop>comboBoxEventNature</tabstop>
   <tabstop>comboBoxEventHiddenPower</tabstop>
   <tabstop>comboBoxEventAbility</tabstop>
@@ -2076,8 +1753,8 @@
   <tabstop>tableViewWild</tabstop>
   <tabstop>dateTimeEditIDStartDate</tabstop>
   <tabstop>dateTimeEditIDEndDate</tabstop>
-  <tabstop>lineEditIDStartFrame</tabstop>
-  <tabstop>lineEditIDEndFrame</tabstop>
+  <tabstop>textBoxIDStartFrame</tabstop>
+  <tabstop>textBoxIDEndFrame</tabstop>
   <tabstop>radioButtonIDTID</tabstop>
   <tabstop>radioButtonIDSID</tabstop>
   <tabstop>radioButtonIDTIDSID</tabstop>
@@ -2089,7 +1766,72 @@
   <tabstop>tableViewID</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButtonStationaryAnyNature</sender>
+   <signal>clicked()</signal>
+   <receiver>comboBoxStationaryNature</receiver>
+   <slot>resetChecks()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>916</x>
+     <y>189</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>862</x>
+     <y>196</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButtonStationaryAnyHiddenPower</sender>
+   <signal>clicked()</signal>
+   <receiver>comboBoxStationaryHiddenPower</receiver>
+   <slot>resetChecks()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>925</x>
+     <y>228</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>842</x>
+     <y>231</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButtonEventAnyNature</sender>
+   <signal>clicked()</signal>
+   <receiver>comboBoxEventNature</receiver>
+   <slot>resetChecks()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>919</x>
+     <y>193</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>836</x>
+     <y>194</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButtonEventAnyHiddenPower</sender>
+   <signal>clicked()</signal>
+   <receiver>comboBoxEventHiddenPower</receiver>
+   <slot>resetChecks()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>910</x>
+     <y>229</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>861</x>
+     <y>227</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
  <buttongroups>
   <buttongroup name="buttonGroup"/>
  </buttongroups>

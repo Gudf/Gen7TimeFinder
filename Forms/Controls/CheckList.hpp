@@ -17,29 +17,41 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef STATIONARYMODEL_HPP
-#define STATIONARYMODEL_HPP
+#ifndef CHECKLIST
+#define CHECKLIST
 
-#include <QAbstractTableModel>
-#include <QVector>
-#include <Core/Utility.hpp>
-#include <Results/StationaryResult.hpp>
+#include <QComboBox>
+#include <QEvent>
+#include <QLineEdit>
+#include <QListView>
+#include <QStandardItemModel>
 
-class StationaryModel : public QAbstractTableModel
+class CheckList : public QComboBox
 {
+    Q_OBJECT
 
 public:
-    StationaryModel(QObject *parent = nullptr);
-    void addItems(const QVector<StationaryResult> &frames);
-    void clear();
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
-    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
-    QVariant data(const QModelIndex &index, int role) const override;
-    QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
+    explicit CheckList(QWidget *parent = nullptr);
+    void setup();
+    QVector<bool> getChecked();
+    void setChecks(QVector<bool> flags);
+
+public slots:
+    void resetChecks();
+
+protected:
+    bool eventFilter(QObject *object, QEvent *event) override;
 
 private:
-    QVector<StationaryResult> model;
+    QStandardItemModel *model;
+
+    void updateText();
+    int checkState();
+
+private slots:
+    void modelDataChanged();
+    void itemPressed(const QModelIndex &index);
 
 };
 
-#endif // STATIONARYMODEL_HPP
+#endif // CHECKLIST

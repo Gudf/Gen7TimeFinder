@@ -1,6 +1,6 @@
 /*
  * This file is part of Gen7TimeFinder
- * Copyright (C) 2018 by Admiral_Fish
+ * Copyright (C) 2018-2019 by Admiral_Fish
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -20,10 +20,7 @@
 #ifndef SFMT_HPP
 #define SFMT_HPP
 
-#include <cstdint>
-
-using u64 = uint64_t;
-using u32 = uint32_t;
+#include <Core/Global.hpp>
 
 class SFMT
 {
@@ -37,7 +34,7 @@ public:
 private:
     const u32 PARITY[4] = { 0x1, 0x0, 0x0, 0x13c9e684 };
     u32 sfmt[624];
-    u32 index;
+    u16 index;
 
     void initialize(u32 seed);
     void periodCertificaion();

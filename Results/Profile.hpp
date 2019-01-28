@@ -1,6 +1,6 @@
 /*
  * This file is part of Gen7TimeFinder
- * Copyright (C) 2018 by Admiral_Fish
+ * Copyright (C) 2018-2019 by Admiral_Fish
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,10 +23,7 @@
 #include <QJsonObject>
 #include <QString>
 #include <Core/Game.hpp>
-#include <cstdint>
-
-using u32 = uint32_t;
-using u16 = uint16_t;
+#include <Core/Global.hpp>
 
 class Profile
 {
@@ -43,6 +40,7 @@ public:
     Game getVersion() const;
     QString getVersionString() const;
     bool getShinyCharm() const;
+    friend bool operator==(const Profile &left, const Profile &right);
 
 private:
     QString name;
@@ -52,5 +50,7 @@ private:
     bool shinyCharm;
 
 };
+
+bool operator==(const Profile &left, const Profile &right);
 
 #endif // PROFILE_HPP

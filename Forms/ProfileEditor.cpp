@@ -1,6 +1,6 @@
 /*
  * This file is part of Gen7TimeFinder
- * Copyright (C) 2018 by Admiral_Fish
+ * Copyright (C) 2018-2019 by Admiral_Fish
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -27,14 +27,9 @@ ProfileEditor::ProfileEditor(QWidget *parent) :
     ui->setupUi(this);
     setAttribute(Qt::WA_QuitOnClose, false);
     setWindowFlags(Qt::Widget | Qt::MSWindowsFixedSizeDialogHint);
-
-    ui->comboBoxProfileVersion->setItemData(0, Game::Sun);
-    ui->comboBoxProfileVersion->setItemData(1, Game::Moon);
-    ui->comboBoxProfileVersion->setItemData(2, Game::UltraSun);
-    ui->comboBoxProfileVersion->setItemData(3, Game::UltraMoon);
 }
 
-ProfileEditor::ProfileEditor(const Profile& profile, QWidget *parent) :
+ProfileEditor::ProfileEditor(const Profile &profile, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ProfileEditor)
 {
@@ -42,20 +37,14 @@ ProfileEditor::ProfileEditor(const Profile& profile, QWidget *parent) :
     setAttribute(Qt::WA_QuitOnClose, false);
     setWindowFlags(Qt::Widget | Qt::MSWindowsFixedSizeDialogHint);
 
-    ui->comboBoxProfileVersion->setItemData(0, Game::Sun);
-    ui->comboBoxProfileVersion->setItemData(1, Game::Moon);
-    ui->comboBoxProfileVersion->setItemData(2, Game::UltraSun);
-    ui->comboBoxProfileVersion->setItemData(3, Game::UltraMoon);
-
     ui->lineEditProfileName->setText(profile.getName());
     ui->comboBoxProfileVersion->setCurrentIndex(ui->comboBoxProfileVersion->findData(profile.getVersion()));
-    ui->lineEditProfileOffset->setText(QString::number(profile.getOffset()));
-    ui->lineEditProfileTick->setText(QString::number(profile.getTick(), 16));
-    ui->lineEditProfileTID->setText(QString::number(profile.getTID()));
-    ui->lineEditProfileSID->setText(QString::number(profile.getSID()));
+    ui->textBoxProfileOffset->setText(QString::number(profile.getOffset()));
+    ui->textBoxProfileTick->setText(QString::number(profile.getTick(), 16));
+    ui->textBoxProfileTID->setText(QString::number(profile.getTID()));
+    ui->textBoxProfileSID->setText(QString::number(profile.getSID()));
     ui->checkBoxShinyCharm->setChecked(profile.getShinyCharm());
 
-    isEditing = true;
     original = profile;
 }
 
@@ -74,10 +63,23 @@ Profile ProfileEditor::getOriginal()
     return original;
 }
 
+void ProfileEditor::setupModels()
+{
+    ui->textBoxProfileTID->setValues(InputType::ID);
+    ui->textBoxProfileSID->setValues(InputType::ID);
+    ui->textBoxProfileTick->setValues(InputType::Seed32Bit);
+    ui->textBoxProfileOffset->setValues(0, 100);
+
+    ui->comboBoxProfileVersion->setItemData(0, Game::Sun);
+    ui->comboBoxProfileVersion->setItemData(1, Game::Moon);
+    ui->comboBoxProfileVersion->setItemData(2, Game::UltraSun);
+    ui->comboBoxProfileVersion->setItemData(3, Game::UltraMoon);
+}
+
 void ProfileEditor::on_buttonBox_accepted()
 {
     QString input = ui->lineEditProfileName->text().trimmed();
-    if (input == "")
+    if (input.isEmpty())
     {
         QMessageBox error;
         error.setText(tr("Enter a Profile Name."));
@@ -85,8 +87,8 @@ void ProfileEditor::on_buttonBox_accepted()
         return;
     }
 
-    fresh = Profile(input, ui->lineEditProfileOffset->text().toUInt(), ui->lineEditProfileTick->text().toUInt(nullptr, 16), ui->lineEditProfileTID->text().toUShort(),
-                    ui->lineEditProfileSID->text().toUShort(), static_cast<Game>(ui->comboBoxProfileVersion->currentData().toInt()), ui->checkBoxShinyCharm->isChecked());
+    fresh = Profile(input, ui->textBoxProfileOffset->getUInt(), ui->textBoxProfileTick->getUInt(), ui->textBoxProfileTID->getUShort(),
+                    ui->textBoxProfileSID->getUShort(), static_cast<Game>(ui->comboBoxProfileVersion->currentData().toInt()), ui->checkBoxShinyCharm->isChecked());
 
     done(QDialog::Accepted);
 }

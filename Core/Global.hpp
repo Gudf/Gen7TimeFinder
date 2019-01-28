@@ -17,29 +17,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef STATIONARYMODEL_HPP
-#define STATIONARYMODEL_HPP
+#include <cstdint>
 
-#include <QAbstractTableModel>
-#include <QVector>
-#include <Core/Utility.hpp>
-#include <Results/StationaryResult.hpp>
+#ifndef GLOBAL_HPP
+#define GLOBAL_HPP
 
-class StationaryModel : public QAbstractTableModel
-{
+using u8 = uint8_t;
+using u16 = uint16_t;
+using u32 = uint32_t;
+using u64 = uint64_t;
 
-public:
-    StationaryModel(QObject *parent = nullptr);
-    void addItems(const QVector<StationaryResult> &frames);
-    void clear();
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
-    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
-    QVariant data(const QModelIndex &index, int role) const override;
-    QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
-
-private:
-    QVector<StationaryResult> model;
-
-};
-
-#endif // STATIONARYMODEL_HPP
+#endif // GLOBAL_HPP

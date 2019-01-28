@@ -17,29 +17,44 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef STATIONARYMODEL_HPP
-#define STATIONARYMODEL_HPP
+#ifndef TEXTBOX_HPP
+#define TEXTBOX_HPP
 
-#include <QAbstractTableModel>
-#include <QVector>
-#include <Core/Utility.hpp>
-#include <Results/StationaryResult.hpp>
+#include <QLineEdit>
+#include <Core/Global.hpp>
 
-class StationaryModel : public QAbstractTableModel
+enum InputType
 {
+    Seed64Bit   = 1 << 0,
+    Frame64Bit  = 1 << 1,
+    Seed32Bit   = 1 << 2,
+    Frame32Bit  = 1 << 3,
+    Seed16Bit   = 1 << 4,
+    Delay       = 1 << 5,
+    ID          = 1 << 6
+};
+
+class TextBox : public QLineEdit
+{
+    Q_OBJECT
 
 public:
-    StationaryModel(QObject *parent = nullptr);
-    void addItems(const QVector<StationaryResult> &frames);
-    void clear();
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
-    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
-    QVariant data(const QModelIndex &index, int role) const override;
-    QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
+    explicit TextBox(QWidget *parent = nullptr);
+    void setValues(InputType type);
+    void setValues(u64 minValue, u64 maxValue, int base = 10);
+    u16 getUShort();
+    u32 getUInt();
 
 private:
-    QVector<StationaryResult> model;
+    bool setup;
+    u64 maxValue = 0;
+    u64 minValue;
+    int base;
+    QRegExp filter;
+
+private slots:
+    void onTextChanged(QString string);
 
 };
 
-#endif // STATIONARYMODEL_HPP
+#endif // TEXTBOX_HPP

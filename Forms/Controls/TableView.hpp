@@ -17,29 +17,25 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef STATIONARYMODEL_HPP
-#define STATIONARYMODEL_HPP
+#ifndef TABLEVIEW_HPP
+#define TABLEVIEW_HPP
 
-#include <QAbstractTableModel>
-#include <QVector>
-#include <Core/Utility.hpp>
-#include <Results/StationaryResult.hpp>
+#include <QApplication>
+#include <QClipboard>
+#include <QHeaderView>
+#include <QKeyEvent>
+#include <QMouseEvent>
+#include <QTableView>
 
-class StationaryModel : public QAbstractTableModel
+class TableView : public QTableView
 {
 
 public:
-    StationaryModel(QObject *parent = nullptr);
-    void addItems(const QVector<StationaryResult> &frames);
-    void clear();
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
-    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
-    QVariant data(const QModelIndex &index, int role) const override;
-    QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
-
-private:
-    QVector<StationaryResult> model;
+    explicit TableView(QWidget *parent = nullptr);
+    void resizeEvent(QResizeEvent *event) override;
+    void mouseDoubleClickEvent(QMouseEvent *event) override;
+    void keyPressEvent(QKeyEvent *event) override;
 
 };
 
-#endif // STATIONARYMODEL_HPP
+#endif // TABLEVIEW_HPP

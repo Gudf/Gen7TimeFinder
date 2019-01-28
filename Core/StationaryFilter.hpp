@@ -1,6 +1,6 @@
 /*
  * This file is part of Gen7TimeFinder
- * Copyright (C) 2018 by Admiral_Fish
+ * Copyright (C) 2018-2019 by Admiral_Fish
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -28,12 +28,13 @@ class StationaryFilter
 
 public:
     StationaryFilter() = default;
-    StationaryFilter(const QVector<int> &minIV, const QVector<int> &maxIV, int nature, int hiddenPower, int ability, bool shiny, int gender);
+    StationaryFilter(const QVector<u8> &minIV, const QVector<u8> &maxIV, const QVector<bool> &nature, const QVector<bool> &hiddenPower, u8 ability, bool shiny, u8 gender);
     bool compare(const StationaryResult &frame);
 
 private:
-    QVector<int> minIV, maxIV;
-    int nature{}, hiddenPower{}, ability{}, gender{};
+    QVector<u8> minIV, maxIV;
+    QVector<bool> nature, hiddenPower;
+    u8 ability{}, gender{};
     bool shiny{};
 
 };

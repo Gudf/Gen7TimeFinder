@@ -1,6 +1,6 @@
 /*
  * This file is part of Gen7TimeFinder
- * Copyright (C) 2018 by Admiral_Fish
+ * Copyright (C) 2018-2019 by Admiral_Fish
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -29,8 +29,6 @@
 #include <Core/Utility.hpp>
 #include <Results/StationaryResult.hpp>
 #include <Results/Profile.hpp>
-
-using u64 = uint64_t;
 
 class StationarySearcher : public QThread
 {
