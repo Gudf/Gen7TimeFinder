@@ -118,7 +118,7 @@
         </widget>
        </item>
        <item row="0" column="3">
-        <widget class="QLineEdit" name="lineEditTickRange">
+        <widget class="TextBox" name="textBoxTickRange">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -141,7 +141,7 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLineEdit" name="lineEditInitialSeed">
+        <widget class="TextBox" name="textBoxInitialSeed">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -154,7 +154,7 @@
         </widget>
        </item>
        <item row="1" column="3">
-        <widget class="QLineEdit" name="lineEditOffsetRange">
+        <widget class="TextBox" name="textBoxOffsetRange">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -246,7 +246,7 @@
         </widget>
        </item>
        <item row="0" column="4">
-        <widget class="QLineEdit" name="lineEditBaseTick">
+        <widget class="TextBox" name="textBoxBaseTick">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -269,7 +269,7 @@
         </widget>
        </item>
        <item row="1" column="4">
-        <widget class="QLineEdit" name="lineEditBaseOffset">
+        <widget class="TextBox" name="textBoxBaseOffset">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -307,14 +307,21 @@
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>TextBox</class>
+   <extends>QLineEdit</extends>
+   <header>Forms/Controls/TextBox.hpp</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>comboBox</tabstop>
-  <tabstop>lineEditBaseTick</tabstop>
-  <tabstop>lineEditBaseOffset</tabstop>
+  <tabstop>textBoxBaseTick</tabstop>
+  <tabstop>textBoxBaseOffset</tabstop>
   <tabstop>dateTimeEdit</tabstop>
-  <tabstop>lineEditTickRange</tabstop>
-  <tabstop>lineEditInitialSeed</tabstop>
-  <tabstop>lineEditOffsetRange</tabstop>
+  <tabstop>textBoxTickRange</tabstop>
+  <tabstop>textBoxInitialSeed</tabstop>
+  <tabstop>textBoxOffsetRange</tabstop>
   <tabstop>pushButtonSearch</tabstop>
   <tabstop>pushButtonCancel</tabstop>
   <tabstop>tableView</tabstop>

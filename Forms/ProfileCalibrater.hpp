@@ -25,7 +25,7 @@
 #include <QStandardItemModel>
 #include <QTimer>
 #include <Core/ProfileSearcher.hpp>
-#include <Forms/ProfileManager.hpp>
+#include <Forms/ProfileEditor.hpp>
 
 namespace Ui
 {
@@ -37,6 +37,9 @@ class ProfileSearch;
 class ProfileCalibrater : public QMainWindow
 {
     Q_OBJECT
+
+signals:
+    void updateProfiles();
 
 public:
     explicit ProfileCalibrater(QWidget *parent = nullptr);

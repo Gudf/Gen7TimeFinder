@@ -265,6 +265,7 @@ void MainWindow::updateProfiles()
 void MainWindow::on_actionCalibrate_Profile_triggered()
 {
     auto *searcher = new ProfileCalibrater();
+    connect(searcher, &ProfileCalibrater::updateProfiles, this, &MainWindow::updateProfiles);
     searcher->show();
     searcher->raise();
 }

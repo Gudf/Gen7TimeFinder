@@ -42,6 +42,12 @@ void ProfileCalibrater::setupModels()
     model->setHorizontalHeaderLabels(QStringList() << tr("Tick") << tr("Offset"));
     ui->tableView->setModel(model);
 
+    ui->textBoxInitialSeed->setValues(InputType::Seed32Bit);
+    ui->textBoxBaseTick->setValues(InputType::Seed32Bit);
+    ui->textBoxBaseOffset->setValues(InputType::Frame32Bit);
+    ui->textBoxTickRange->setValues(InputType::Frame32Bit);
+    ui->textBoxOffsetRange->setValues(InputType::Frame32Bit);
+
     contextMenu = new QMenu(ui->tableView);
     QAction *createProfile = contextMenu->addAction(tr("Create profile from parameters"));
     connect(createProfile, &QAction::triggered, this, &ProfileCalibrater::createProfile);
@@ -57,11 +63,11 @@ void ProfileCalibrater::on_pushButtonSearch_clicked()
 
     QDateTime dateTime = ui->dateTimeEdit->dateTime();
     dateTime.setTimeSpec(Qt::UTC);
-    u32 initialSeed = ui->lineEditInitialSeed->text().toUInt(nullptr, 16);
-    u32 baseTick = ui->lineEditBaseTick->text().toUInt(nullptr, 16);
-    u32 baseOffset = ui->lineEditBaseOffset->text().toUInt();
-    u32 tickRange = ui->lineEditTickRange->text().toUInt();
-    u32 offsetRange = ui->lineEditOffsetRange->text().toUInt();
+    u32 initialSeed = ui->textBoxInitialSeed->getUInt();
+    u32 baseTick = ui->textBoxBaseTick->getUInt();
+    u32 baseOffset = ui->textBoxBaseOffset->getUInt();
+    u32 tickRange = ui->textBoxTickRange->getUInt();
+    u32 offsetRange = ui->textBoxOffsetRange->getUInt();
 
     auto *search = new ProfileSearcher(dateTime, initialSeed, baseTick, baseOffset, tickRange, offsetRange);
     auto *timer = new QTimer();
@@ -94,13 +100,13 @@ void ProfileCalibrater::on_comboBox_currentIndexChanged(int index)
 {
     if (index == 0)
     {
-        ui->lineEditBaseOffset->setText("54");
-        ui->lineEditBaseTick->setText("3532EA4");
+        ui->textBoxBaseOffset->setText("54");
+        ui->textBoxBaseTick->setText("3532EA4");
     }
     else if (index == 1)
     {
-        ui->lineEditBaseOffset->setText("55");
-        ui->lineEditBaseTick->setText("41D9CB9");
+        ui->textBoxBaseOffset->setText("55");
+        ui->textBoxBaseTick->setText("41D9CB9");
     }
 }
 
@@ -114,7 +120,11 @@ void ProfileCalibrater::createProfile()
     u32 tick = ui->tableView->model()->data(ui->tableView->model()->index(ui->tableView->currentIndex().row(), 0)).toString().toUInt(nullptr, 16);
     u32 offset = ui->tableView->model()->data(ui->tableView->model()->index(ui->tableView->currentIndex().row(), 1)).toString().toUInt();
 
-    auto *manager = new ProfileManager(tick, offset);
-    manager->show();
-    manager->raise();
+    auto *dialog = new ProfileEditor(tick, offset);
+    if (dialog->exec() == QDialog::Accepted)
+    {
+        Profile profile = dialog->getNewProfile();
+        Utility::saveProfile(profile);
+        emit updateProfiles();
+    }
 }
