@@ -43,7 +43,7 @@
      </widget>
     </item>
     <item row="1" column="0" colspan="3">
-     <widget class="TableView" name="tableView"/>
+     <widget class="QTableView" name="tableView"/>
     </item>
     <item row="2" column="0" colspan="3">
      <widget class="QPushButton" name="pushButtonDone">
@@ -65,13 +65,6 @@
    </property>
   </widget>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>TableView</class>
-   <extends>QTableView</extends>
-   <header>Forms/Controls/TableView.hpp</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

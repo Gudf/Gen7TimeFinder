@@ -27,6 +27,8 @@ ProfileEditor::ProfileEditor(QWidget *parent) :
     ui->setupUi(this);
     setAttribute(Qt::WA_QuitOnClose, false);
     setWindowFlags(Qt::Widget | Qt::MSWindowsFixedSizeDialogHint);
+
+    setupModels();
 }
 
 ProfileEditor::ProfileEditor(const Profile &profile, QWidget *parent) :
@@ -37,6 +39,8 @@ ProfileEditor::ProfileEditor(const Profile &profile, QWidget *parent) :
     setAttribute(Qt::WA_QuitOnClose, false);
     setWindowFlags(Qt::Widget | Qt::MSWindowsFixedSizeDialogHint);
 
+    setupModels();
+
     ui->lineEditProfileName->setText(profile.getName());
     ui->comboBoxProfileVersion->setCurrentIndex(ui->comboBoxProfileVersion->findData(profile.getVersion()));
     ui->textBoxProfileOffset->setText(QString::number(profile.getOffset()));
@@ -46,6 +50,20 @@ ProfileEditor::ProfileEditor(const Profile &profile, QWidget *parent) :
     ui->checkBoxShinyCharm->setChecked(profile.getShinyCharm());
 
     original = profile;
+}
+
+ProfileEditor::ProfileEditor(u32 tick, u32 offset, QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::ProfileEditor)
+{
+    ui->setupUi(this);
+    setAttribute(Qt::WA_QuitOnClose, false);
+    setWindowFlags(Qt::Widget | Qt::MSWindowsFixedSizeDialogHint);
+
+    setupModels();
+
+    ui->textBoxProfileOffset->setText(QString::number(offset));
+    ui->textBoxProfileTick->setText(QString::number(tick, 16));
 }
 
 ProfileEditor::~ProfileEditor()

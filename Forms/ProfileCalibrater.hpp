@@ -21,9 +21,11 @@
 #define PROFILECALIBRATER_HPP
 
 #include <QMainWindow>
+#include <QMenu>
 #include <QStandardItemModel>
 #include <QTimer>
 #include <Core/ProfileSearcher.hpp>
+#include <Forms/ProfileEditor.hpp>
 
 namespace Ui
 {
@@ -36,6 +38,9 @@ class ProfileCalibrater : public QMainWindow
 {
     Q_OBJECT
 
+signals:
+    void updateProfiles();
+
 public:
     explicit ProfileCalibrater(QWidget *parent = nullptr);
     ~ProfileCalibrater() override;
@@ -43,6 +48,7 @@ public:
 private:
     Ui::ProfileCalibrater *ui;
     QStandardItemModel *model;
+    QMenu *contextMenu;
 
     void setupModels();
 
@@ -50,6 +56,8 @@ private slots:
     void on_pushButtonSearch_clicked();
     void updateResults(QVector<QPair<u32, u32>> results, int val);
     void on_comboBox_currentIndexChanged(int index);
+    void on_tableView_customContextMenuRequested(const QPoint &pos);
+    void createProfile();
 
 };
 

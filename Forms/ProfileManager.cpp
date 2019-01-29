@@ -27,6 +27,8 @@ ProfileManager::ProfileManager(QWidget *parent) :
     ui->setupUi(this);
     setAttribute(Qt::WA_QuitOnClose, false);
     setAttribute(Qt::WA_DeleteOnClose);
+
+    setupModels();
 }
 
 ProfileManager::~ProfileManager()
@@ -39,6 +41,7 @@ void ProfileManager::setupModels()
     model = new ProfileModel(ui->tableView);
     model->setModel(Utility::loadProfileList());
     ui->tableView->setModel(model);
+    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 }
 
 void ProfileManager::on_pushButtonNew_clicked()
