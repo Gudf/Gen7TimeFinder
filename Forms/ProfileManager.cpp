@@ -27,6 +27,29 @@ ProfileManager::ProfileManager(QWidget *parent) :
     ui->setupUi(this);
     setAttribute(Qt::WA_QuitOnClose, false);
     setAttribute(Qt::WA_DeleteOnClose);
+
+    setupModels();
+}
+
+ProfileManager::ProfileManager(u32 tick, u32 offset, QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::ProfileManager)
+{
+    ui->setupUi(this);
+    setAttribute(Qt::WA_QuitOnClose, false);
+    setAttribute(Qt::WA_DeleteOnClose);
+
+    setupModels();
+
+    auto *dialog = new ProfileEditor(tick, offset);
+    if (dialog->exec() == QDialog::Accepted)
+    {
+        Profile profile = dialog->getNewProfile();
+        Utility::saveProfile(profile);
+        model->addItem(profile);
+        emit updateProfiles();
+    }
+    delete dialog;
 }
 
 ProfileManager::~ProfileManager()
@@ -39,6 +62,7 @@ void ProfileManager::setupModels()
     model = new ProfileModel(ui->tableView);
     model->setModel(Utility::loadProfileList());
     ui->tableView->setModel(model);
+    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 }
 
 void ProfileManager::on_pushButtonNew_clicked()

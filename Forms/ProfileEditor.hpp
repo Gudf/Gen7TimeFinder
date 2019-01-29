@@ -40,6 +40,7 @@ signals:
 public:
     explicit ProfileEditor(QWidget *parent = nullptr);
     explicit ProfileEditor(const Profile &profile, QWidget *parent = nullptr);
+    explicit ProfileEditor(u32 tick, u32 offset, QWidget *parent = nullptr);
     ~ProfileEditor() override;
     Profile getNewProfile();
     Profile getOriginal();

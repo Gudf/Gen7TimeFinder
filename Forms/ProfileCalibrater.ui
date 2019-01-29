@@ -187,6 +187,9 @@
         <verstretch>1</verstretch>
        </sizepolicy>
       </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::CustomContextMenu</enum>
+      </property>
      </widget>
     </item>
     <item row="1" column="0" colspan="2">

@@ -94,6 +94,8 @@ QString Profile::getVersionString() const
             return "Ultra Sun";
         case Game::UltraMoon:
             return "Ultra Moon";
+        default:
+            return "-";
     }
 }
 

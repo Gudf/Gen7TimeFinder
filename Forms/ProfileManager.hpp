@@ -40,6 +40,7 @@ signals:
 
 public:
     explicit ProfileManager(QWidget *parent = nullptr);
+    explicit ProfileManager(u32 tick, u32 offset, QWidget *parent = nullptr);
     ~ProfileManager() override;
 
 private:

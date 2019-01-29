@@ -27,6 +27,8 @@ ProfileCalibrater::ProfileCalibrater(QWidget *parent) :
     ui->setupUi(this);
     setAttribute(Qt::WA_QuitOnClose, false);
     setAttribute(Qt::WA_DeleteOnClose);
+
+    setupModels();
 }
 
 ProfileCalibrater::~ProfileCalibrater()
@@ -39,6 +41,10 @@ void ProfileCalibrater::setupModels()
     model = new QStandardItemModel(ui->tableView);
     model->setHorizontalHeaderLabels(QStringList() << tr("Tick") << tr("Offset"));
     ui->tableView->setModel(model);
+
+    contextMenu = new QMenu(ui->tableView);
+    QAction *createProfile = contextMenu->addAction(tr("Create profile from parameters"));
+    connect(createProfile, &QAction::triggered, this, &ProfileCalibrater::createProfile);
 
     qRegisterMetaType<QPair<u32, u32>>("QPair<u32, u32>");
 }
@@ -96,4 +102,19 @@ void ProfileCalibrater::on_comboBox_currentIndexChanged(int index)
         ui->lineEditBaseOffset->setText("55");
         ui->lineEditBaseTick->setText("41D9CB9");
     }
+}
+
+void ProfileCalibrater::on_tableView_customContextMenuRequested(const QPoint &pos)
+{
+    contextMenu->popup(ui->tableView->viewport()->mapToGlobal(pos));
+}
+
+void ProfileCalibrater::createProfile()
+{
+    u32 tick = ui->tableView->model()->data(ui->tableView->model()->index(ui->tableView->currentIndex().row(), 0)).toString().toUInt(nullptr, 16);
+    u32 offset = ui->tableView->model()->data(ui->tableView->model()->index(ui->tableView->currentIndex().row(), 1)).toString().toUInt();
+
+    auto *manager = new ProfileManager(tick, offset);
+    manager->show();
+    manager->raise();
 }
